@@ -1,0 +1,22 @@
+{
+	"name": "@theatrex/types",
+	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"build": "tsup",
+		"build:docs": "typedoc --out docs src"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.18",
+		"tsup": "^6.5.0",
+		"tsx": "^3.12.1",
+		"typedoc": "^0.23.24",
+		"typescript": "^4.9.4"
+	}
+}
