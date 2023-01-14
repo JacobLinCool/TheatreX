@@ -26,8 +26,8 @@ jobs:
             - name: Setup Playwright
               run: npx playwright install chromium --with-deps
 
+            - name: Build All
+              run: pnpm -r build
+
             - name: Run Tests
               run: pnpm test
-
-            - name: Build Library
-              run: pnpm -r build
