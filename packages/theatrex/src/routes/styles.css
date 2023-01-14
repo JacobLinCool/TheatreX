@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply relative;
+}
+
+html,
+body,
+main {
+	@apply bg-base-300 m-0 h-full w-full overflow-hidden p-0;
+}
+
+#launching-status {
+	@apply absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center text-2xl;
+}

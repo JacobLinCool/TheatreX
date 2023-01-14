@@ -8,7 +8,10 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"GitHub.copilot",
-		"GitHub.copilot-labs"
+		"GitHub.copilot-labs",
+		"svelte.svelte-vscode",
+		"bradlc.vscode-tailwindcss",
+		"antfu.iconify"
 	],
 	"onCreateCommand": "pnpm config set -g store-dir /workspace/node_modules/.pnpm-store",
 	"postStartCommand": "pnpm i"
