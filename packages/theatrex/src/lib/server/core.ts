@@ -57,8 +57,7 @@ function providers() {
 				const options = {
 					stdio: "pipe",
 					env: {
-						DEBUG: process.env.DEBUG || "",
-						PATH: process.env.PATH || "",
+						...process.env,
 						PORT: port.toString(),
 					},
 					cwd: path.dirname(use),

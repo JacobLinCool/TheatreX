@@ -1,5 +1,6 @@
 import type { TheatrexConfig } from "@theatrex/types";
 import { fs, config_schema } from "./fs";
+import log from "./log";
 
 let _config: TheatrexConfig | undefined;
 
@@ -8,7 +9,7 @@ export function load(): TheatrexConfig {
 		_config = fs["config.yaml"].$data;
 		_config = config_schema.parse(_config);
 	} catch (err) {
-		console.warn("Use default config");
+		log("Use default config");
 		_config = {
 			providers: [],
 		};
