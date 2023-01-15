@@ -9,5 +9,6 @@ export const load: PageServerLoad = async () => {
 		config: config(),
 		info: await Promise.all(core.providers.map((p) => p.info())),
 		recent: fs.history["recent.json"].$data || [],
+		lists: fs.lists.$list().map((list) => [list, fs.lists[list].$data?.name]),
 	};
 };

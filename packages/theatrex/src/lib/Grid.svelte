@@ -7,11 +7,14 @@
 	export let name: string = "";
 </script>
 
-{#if name}
-	<h2 class="m-2">
-		{name}
-	</h2>
-{/if}
+<slot name="name">
+	{#if name}
+		<h2 class="m-2 text-lg font-bold">
+			{name}
+		</h2>
+	{/if}
+</slot>
+
 <div
 	class="grid grid-cols-2 place-items-stretch gap-2 p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 >

@@ -74,8 +74,8 @@
 		}
 	}}
 >
-	<div class="w-full">
+	<div class="flex aspect-video max-h-[90%] w-full items-center justify-center">
 		<!-- svelte-ignore a11y-media-has-caption -->
-		<video id="player" class="video-js w-full" />
+		<video id="player" class="video-js max-h-full w-full" />
 	</div>
 </div>

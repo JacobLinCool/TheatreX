@@ -84,6 +84,7 @@ function providers() {
 							const file = fs.logs.provider[port][new Date().toISOString()];
 							file.$data = "";
 							const stream = file.$fs.createWriteStream();
+							log(`logging ${use} to ${file.$path}`);
 							const print = (data: Buffer) => {
 								const out = data.toString();
 								stream.write(out);

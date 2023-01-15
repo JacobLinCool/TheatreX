@@ -7,5 +7,11 @@ export const GET: RequestHandler = async ({ params }) => {
 	const [prefix, ...rest] = id.split("::");
 	const provider = core.providers.find((provider) => provider.prefix === prefix);
 	const data = await provider?.resource(rest.join("::"));
-	return data ? new Response(data) : new Response(null, { status: 404 });
+	return data
+		? new Response(data, {
+				headers: {
+					"Cache-Control": "public, max-age=86400",
+				},
+		  })
+		: new Response(null, { status: 404 });
 };

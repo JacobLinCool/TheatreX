@@ -9,7 +9,7 @@
 
 <div class="w-full p-2">
 	{#if name}
-		<h2 class="mb-2">
+		<h2 class="mb-2 text-lg font-bold">
 			{name}
 		</h2>
 	{/if}

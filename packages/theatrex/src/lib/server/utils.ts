@@ -1,5 +1,4 @@
 import core from "./core";
-import fs from "./fs";
 
 export async function get_item(id: string) {
 	const [prefix, ...rest] = id.split("::");

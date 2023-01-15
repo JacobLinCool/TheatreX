@@ -44,10 +44,7 @@
 			</div>
 			<div class="block md:hidden">
 				<a href="/search" class="btn btn-ghost">
-					<Icon
-						icon="heroicons:magnifying-glass"
-						class="text-base-content hover:text-accent"
-					/>
+					<Icon icon="mdi:magnify" class="text-base-content hover:text-accent" />
 				</a>
 			</div>
 		{/if}

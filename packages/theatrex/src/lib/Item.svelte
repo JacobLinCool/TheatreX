@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Icon from "@iconify/svelte";
 	import type { Item } from "@theatrex/types";
+	import Popup from "./Popup.svelte";
 	import { current_watching } from "./globals";
 
 	export let item: Item<true>;
@@ -20,10 +22,84 @@
 
 		return hms;
 	}
+
+	let lists: [string, string][] = [];
+
+	async function fetch_lists() {
+		const res = await fetch("/api/personal/list");
+		const data = await res.json();
+		console.log(data);
+
+		lists.push(...data.lists);
+		lists = lists;
+	}
+
+	let added_message = "";
+	async function add_to_list() {
+		const select = document.querySelector<HTMLSelectElement>("#list-select");
+		if (!select) {
+			return;
+		}
+		const id = select.value;
+		const name = select.options[select.selectedIndex].text;
+
+		const res = await fetch("/api/personal/list/" + id, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id: item.id,
+				name: item.name,
+				cover: item.cover,
+			}),
+		});
+
+		if (res.ok) {
+			added_message = `Added to list "${name}"`;
+		}
+	}
 </script>
 
 <div class="w-full">
-	<h1 class="text-base-content p-2 pb-4 text-2xl font-bold">{item.name}</h1>
+	<h1 class="text-base-content p-2 pb-4 text-2xl font-bold">
+		{item.name}
+
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<Popup id="add-to-list" title="Add to List">
+			<div
+				slot="button"
+				class="btn btn-ghost float-right text-2xl"
+				on:click={() => {
+					if (lists.length === 0) {
+						fetch_lists();
+					}
+				}}
+			>
+				<Icon icon="mdi:plus-box-outline" />
+			</div>
+
+			<div slot="body" class="form-control w-full">
+				<span class="label">
+					<span class="label-text">Select List</span>
+				</span>
+
+				<select id="list-select" class="select select-bordered w-full">
+					{#each lists as list}
+						<option value={list[0]}>{list[1]}</option>
+					{/each}
+				</select>
+
+				<button class="btn btn-sm mt-4 p-2" on:click={add_to_list}> Add </button>
+
+				<div class="divider" />
+
+				{#if added_message}
+					<p class="text-base-content mt-2 text-sm">{added_message}</p>
+				{/if}
+			</div>
+		</Popup>
+	</h1>
 
 	<div class="flex flex-col md:flex-row">
 		<div class="p-2">

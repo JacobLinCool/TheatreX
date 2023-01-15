@@ -1,43 +1,17 @@
 <script lang="ts">
+	import CreateList from "$lib/CreateList.svelte";
 	import List from "$lib/List.svelte";
 	import { onMount } from "svelte";
 	import { themeChange } from "theme-change";
 	import type { Info, TheatrexConfig, ListItem } from "@theatrex/types";
+	import { themes } from "./theme";
 
-	export let data: { config: TheatrexConfig; info: Info<any>[]; recent: ListItem[] };
-
-	const themes = [
-		"TheatreX",
-		"light",
-		"dark",
-		"cupcake",
-		"bumblebee",
-		"emerald",
-		"corporate",
-		"synthwave",
-		"retro",
-		"cyberpunk",
-		"valentine",
-		"halloween",
-		"garden",
-		"forest",
-		"aqua",
-		"lofi",
-		"pastel",
-		"fantasy",
-		"wireframe",
-		"black",
-		"luxury",
-		"dracula",
-		"cmyk",
-		"autumn",
-		"business",
-		"acid",
-		"lemonade",
-		"night",
-		"coffee",
-		"winter",
-	];
+	export let data: {
+		config: TheatrexConfig;
+		info: Info<any>[];
+		recent: ListItem[];
+		lists: [id: string, name: string][];
+	};
 
 	const new_provider = {
 		use: "",
@@ -85,6 +59,21 @@
 
 			<div class="divider" />
 		{/if}
+
+		<div class="w-full px-2">
+			<a class="mb-2 block text-lg font-bold" href="/personal/list">Your Lists</a>
+			{#each data.lists as [id, name]}
+				<a href="/personal/list/{id}" class="btn btn-outline btn-sm m-2 normal-case"
+					>{name}</a
+				>
+			{/each}
+
+			<CreateList>
+				<span class="btn btn-outline btn-sm m-2 normal-case"> + </span>
+			</CreateList>
+		</div>
+
+		<div class="divider" />
 
 		<div class="form-control w-full max-w-md">
 			<label class="label" for="theme-select">
