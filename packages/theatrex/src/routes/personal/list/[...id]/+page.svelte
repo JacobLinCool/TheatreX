@@ -3,6 +3,7 @@
 	import { page } from "$app/stores";
 	import CreateList from "$lib/CreateList.svelte";
 	import Grid from "$lib/Grid.svelte";
+	import ListItem from "$lib/ListItem.svelte";
 	import Icon from "@iconify/svelte";
 	import type { List } from "@theatrex/types";
 
@@ -35,6 +36,28 @@
 		});
 
 		data = data;
+	}
+
+	function drag(evt: DragEvent, idx: number) {
+		console.log("drag", evt, idx);
+		if (!evt.dataTransfer) {
+			return;
+		}
+		evt.dataTransfer.effectAllowed = "move";
+		evt.dataTransfer.dropEffect = "move";
+		evt.dataTransfer.setData("text/plain", idx.toString());
+	}
+
+	function drop(evt: DragEvent, idx: number) {
+		console.log("drop", evt, idx);
+		if (!evt.dataTransfer) {
+			return;
+		}
+		const old_idx = parseInt(evt.dataTransfer.getData("text/plain"));
+		const item = list.items[old_idx];
+		list.items.splice(old_idx, 1);
+		list.items.splice(idx, 0, item);
+		update_list(list);
 	}
 </script>
 
@@ -82,17 +105,27 @@
 					}}
 				/>
 			</div>
-			<button
+			<div
 				slot="item"
 				let:item
-				class="btn btn-xs btn-error absolute top-0 right-0 mx-2 hidden group-hover:block"
-				on:click={() => {
-					list.items = list.items.filter((i) => i !== item);
-					update_list(list);
-				}}
+				let:idx
+				class="contents"
+				draggable={true}
+				on:dragstart={(evt) => drag(evt, idx)}
+				on:dragover={(evt) => evt.preventDefault()}
+				on:drop|preventDefault={(evt) => drop(evt, idx)}
 			>
-				<Icon icon="mdi:close" />
-			</button>
+				<ListItem {item} />
+				<button
+					class="btn btn-xs btn-error absolute top-0 right-0 mx-2 hidden group-hover:block"
+					on:click={() => {
+						list.items = list.items.filter((i) => i !== item);
+						update_list(list);
+					}}
+				>
+					<Icon icon="mdi:close" />
+				</button>
+			</div>
 		</Grid>
 	{:else}
 		<div class="flex h-full w-full flex-col items-center justify-center">
