@@ -11,7 +11,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 	protected readonly url: string;
 	protected readonly auth: T;
 	protected _token?: string;
-	public readonly prefix: string;
+	public prefix: string;
 	public fetch: typeof fetch;
 
 	constructor(
@@ -67,9 +67,10 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
 		}
 
-		this._info = this.patch(await res.json());
+		this._info = (await res.json()) as Info<T>;
+		this.prefix = this._info.id;
 		this._info_expirs = Date.now() + 1000 * 60 * 60;
-		return this._info as Info<T>;
+		return this._info;
 	}
 
 	public async check(): Promise<[ok: boolean, missing: [key: string, reason: string][]]> {

@@ -50,6 +50,7 @@ export class Provider<
 		this._item = async () => undefined;
 		this._list = async () => ({ id: "", name: "", items: [] });
 		this._info = async () => ({
+			id: "provider",
 			name: "Provider",
 			auth: {
 				username: "An user identifier",

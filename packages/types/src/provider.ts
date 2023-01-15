@@ -99,6 +99,7 @@ export interface Tab {
 }
 
 export interface Info<T extends BaseAuthenticationCredentials> {
+	id: string;
 	name: string;
 	auth: {
 		[key in keyof T]: string;
