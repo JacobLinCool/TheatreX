@@ -141,9 +141,10 @@
 							{#if episode.watched > 0}
 								<span class="text-base-content text-sm">
 									<span class="hidden sm:inline"
-										>watched {hms(episode.watched)}</span
+										>watched {hms(episode.watched)} (</span
+									>{Math.round((episode.watched / episode.total) * 100)}%<span
+										class="hidden sm:inline">)</span
 									>
-									({Math.round((episode.watched / episode.total) * 100)}%)
 								</span>
 							{/if}
 						</div>
