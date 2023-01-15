@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SvelteMarkdown from "svelte-markdown";
 	import Icon from "@iconify/svelte";
 	import type { Item } from "@theatrex/types";
 	import Popup from "./Popup.svelte";
@@ -113,7 +114,9 @@
 					<a href="/search/?q={tag}" class="badge badge-outline mr-2">{tag}</a>
 				{/each}
 			</div>
-			<p class="text-base-content whitespace-pre-line">{item.description}</p>
+			<dive class="text-base-content prose contents whitespace-pre-line">
+				<SvelteMarkdown source={item.description} />
+			</dive>
 		</div>
 	</div>
 

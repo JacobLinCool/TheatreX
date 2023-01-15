@@ -196,6 +196,7 @@ importers:
             shelljs: ^0.8.5
             svelte: ^3.55.1
             svelte-check: ^3.0.2
+            svelte-markdown: ^0.2.3
             tailwindcss: ^3.2.4
             theme-change: ^2.3.0
             tslib: ^2.4.1
@@ -226,6 +227,7 @@ importers:
             shelljs: 0.8.5
             svelte: 3.55.1
             svelte-check: 3.0.2_pehl75e5jsy22vp33udjja4soi
+            svelte-markdown: 0.2.3_svelte@3.55.1
             tailwindcss: 3.2.4_postcss@8.4.21
             theme-change: 2.3.0
             tslib: 2.4.1
@@ -2017,6 +2019,13 @@ packages:
         dependencies:
             "@types/koa": 2.13.5
         dev: false
+
+    /@types/marked/4.0.8:
+        resolution:
+            {
+                integrity: sha512-HVNzMT5QlWCOdeuBsgXP8EZzKUf0+AXzN+sLmjvaB3ZlLqO+e4u0uXrdw9ub69wBKFs+c6/pA4r9sy6cCDvImw==,
+            }
+        dev: true
 
     /@types/mime/3.0.1:
         resolution:
@@ -7480,6 +7489,19 @@ packages:
         peerDependencies:
             svelte: ">=3.19.0"
         dependencies:
+            svelte: 3.55.1
+        dev: true
+
+    /svelte-markdown/0.2.3_svelte@3.55.1:
+        resolution:
+            {
+                integrity: sha512-2h680NzTXnAD0CXhxe3GeHl6W+ayG4iKQRl+BIDRw+R0mUE0OiNxP1Vt8Rn+aWevB/LBiBIPCAwvL+0BkG057A==,
+            }
+        peerDependencies:
+            svelte: ^3.0.0
+        dependencies:
+            "@types/marked": 4.0.8
+            marked: 4.2.5
             svelte: 3.55.1
         dev: true
 
