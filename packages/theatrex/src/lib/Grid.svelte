@@ -19,8 +19,9 @@
 	class="grid grid-cols-2 place-items-stretch gap-2 p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 >
 	{#each items as item, idx}
-		<div in:fade={{ duration: 120, delay: idx * 40 }}>
+		<div class="group" in:fade={{ duration: 120, delay: idx * 40 }}>
 			<UIListItem {item} />
+			<slot name="item" {item} />
 		</div>
 	{/each}
 </div>

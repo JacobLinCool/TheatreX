@@ -3,7 +3,7 @@
 	import { page } from "$app/stores";
 	import CreateList from "$lib/CreateList.svelte";
 	import Grid from "$lib/Grid.svelte";
-	import Popup from "$lib/Popup.svelte";
+	import Icon from "@iconify/svelte";
 	import type { List } from "@theatrex/types";
 
 	export let data: List | { lists: [string, string][] };
@@ -33,6 +33,8 @@
 			},
 			body: JSON.stringify(list),
 		});
+
+		data = data;
 	}
 </script>
 
@@ -80,6 +82,17 @@
 					}}
 				/>
 			</div>
+			<button
+				slot="item"
+				let:item
+				class="btn btn-xs btn-error absolute top-0 right-0 mx-2 hidden group-hover:block"
+				on:click={() => {
+					list.items = list.items.filter((i) => i !== item);
+					update_list(list);
+				}}
+			>
+				<Icon icon="mdi:close" />
+			</button>
 		</Grid>
 	{:else}
 		<div class="flex h-full w-full flex-col items-center justify-center">
