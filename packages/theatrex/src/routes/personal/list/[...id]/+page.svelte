@@ -4,6 +4,7 @@
 	import CreateList from "$lib/CreateList.svelte";
 	import Grid from "$lib/Grid.svelte";
 	import ListItem from "$lib/ListItem.svelte";
+	import yaml from "js-yaml";
 	import Icon from "@iconify/svelte";
 	import type { List } from "@theatrex/types";
 
@@ -59,6 +60,23 @@
 		list.items.splice(idx, 0, item);
 		update_list(list);
 	}
+
+	function export_list() {
+		const data = yaml.dump(
+			{ name: list.name, items: list.items.map((item) => item.name) },
+			{ indent: 4 },
+		);
+		const blob = new Blob([data], { type: "text/yaml" });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+
+		a.href = url;
+		a.download = list.name + ".yaml";
+		a.click();
+
+		URL.revokeObjectURL(url);
+		a.remove();
+	}
 </script>
 
 <svelte:head>
@@ -95,7 +113,7 @@
 		{/if}
 	{:else if data.id}
 		<Grid items={data.items}>
-			<div slot="name">
+			<div slot="name" class="flex items-center justify-between">
 				<input
 					class="input input-ghost hover:input-bordered m-2 text-xl font-bold"
 					bind:value={data.name}
@@ -104,6 +122,10 @@
 						update_list(list);
 					}}
 				/>
+
+				<button class="btn btn-outline btn-sm m-4" on:click={export_list}>
+					<Icon icon="mdi:download" />
+				</button>
 			</div>
 			<div
 				slot="item"

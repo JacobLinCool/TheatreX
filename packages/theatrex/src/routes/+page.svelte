@@ -57,7 +57,7 @@
 		{#if data.recent.length}
 			<List items={data.recent} name="Recently Watched" />
 
-			<div class="divider" />
+			<div class="mb-4" />
 		{/if}
 
 		<div class="w-full px-2">
