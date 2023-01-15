@@ -7,6 +7,8 @@
 	export let name = "";
 	export let items: ListItem[] = [];
 
+	let random_id = Math.random().toString(36).slice(2);
+
 	let err = "";
 	$: {
 		fetch("/api/personal/list/" + name.replace(/[/\s]/g, "-"))
@@ -14,6 +16,8 @@
 			.then((data) => {
 				if (data.id) {
 					err = "List already exists";
+				} else {
+					err = "";
 				}
 			});
 	}
@@ -47,7 +51,7 @@
 	}
 </script>
 
-<Popup id="create-new-list" title="Create New List">
+<Popup id="create-new-list-{random_id}" title="Create New List">
 	<slot slot="button" />
 	<div slot="body">
 		<div class="form-control w-full">
