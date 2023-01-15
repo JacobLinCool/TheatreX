@@ -37,6 +37,11 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 			if ("id" in obj && typeof obj.id === "string") {
 				obj.id = `${this.prefix}::${obj.id}`;
 			}
+			if ("cover" in obj && typeof obj.cover === "string") {
+				obj.cover = new URL(obj.cover, this.url).href
+					.replace("/resource/", "")
+					.replace(this.url, "/api/resource/" + this.prefix + "::");
+			}
 
 			for (const key in obj) {
 				this.patch(obj[key]);
