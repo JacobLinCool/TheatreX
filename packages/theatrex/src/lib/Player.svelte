@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { onMount, onDestroy } from "svelte";
+	import { onMount } from "svelte";
 	import videojs from "video.js";
 	import "video.js/dist/video-js.min.css";
 	import type { Item } from "@theatrex/types";
@@ -9,9 +9,8 @@
 	export let item: Item<true>;
 	export let id: string;
 
-	$: episode = item.seasons
-		.flatMap((season) => season.episodes)
-		.find((episode) => episode.id === id);
+	$: episodes = item.seasons.flatMap((season) => season.episodes);
+	$: episode = episodes.find((episode) => episode.id === id);
 
 	let mounted = false;
 	onMount(() => {
@@ -21,38 +20,62 @@
 	let player: videojs.Player;
 	$: {
 		if (mounted && episode) {
-			player = videojs("#player", {
-				controls: true,
-				autoplay: true,
-				sources: [
-					{
-						src: $page.url.origin + "/api/resource/" + episode.id,
-					},
-				],
-			});
-
-			if ($current_watching && episode.watched > player.currentTime()) {
-				player.currentTime(episode.watched);
+			const first_time = !player;
+			if (first_time) {
+				player = videojs("#player", {
+					controls: true,
+					autoplay: true,
+				});
+			}
+			const source = $page.url.origin + "/api/resource/" + episode.id;
+			if (player.src() !== source) {
+				player.src(source);
+				console.log("load source", episode.id);
 			}
 
-			player.on("timeupdate", async () => {
-				const total = Math.floor(player.duration());
-				const watched = Math.floor(player.currentTime());
-
-				if (episode && episode.watched < watched) {
-					episode.watched = watched;
-					episode.total = total;
-
-					await fetch("/api/personal/watched/" + item.id, {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({ episode: episode.id, watched, total }),
-					});
-					console.log("updated watched time", episode, watched, total);
+			if (first_time) {
+				if (
+					$current_watching &&
+					episode.watched > player.currentTime() &&
+					episode.watched / episode.total < 0.95
+				) {
+					player.currentTime(episode.watched);
 				}
-			});
+
+				player.on("timeupdate", async () => {
+					const total = Math.floor(player.duration());
+					const watched = Math.floor(player.currentTime());
+
+					if (episode && episode.watched < watched) {
+						episode.watched = watched;
+						episode.total = total;
+
+						await fetch("/api/personal/watched/" + item.id, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ episode: episode.id, watched, total }),
+						});
+						console.log("updated watched time", episode, watched, total);
+					}
+				});
+
+				player.on("ended", async () => {
+					const next_idx = episodes.findIndex((e) => e.id === episode?.id) + 1;
+					if (next_idx < 1) {
+						return;
+					}
+
+					const next_episode = episodes[next_idx];
+					if (next_episode) {
+						$current_watching = {
+							item,
+							id: next_episode.id,
+						};
+					}
+				});
+			}
 		}
 	}
 
