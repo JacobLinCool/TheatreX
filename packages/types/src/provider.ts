@@ -61,7 +61,7 @@ export type HydratedEpisode = {
 };
 
 export type Episode<Hydrated = false> = {
-	id: string;
+	res: string;
 	name: string;
 	description: string;
 } & (Hydrated extends true ? HydratedEpisode : {});

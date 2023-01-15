@@ -37,6 +37,9 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 			if ("id" in obj && typeof obj.id === "string") {
 				obj.id = `${this.prefix}::${obj.id}`;
 			}
+			if ("res" in obj && typeof obj.res === "string") {
+				obj.res = `${this.prefix}::${obj.res}`;
+			}
 			if ("cover" in obj && typeof obj.cover === "string") {
 				obj.cover = new URL(obj.cover, this.url).href
 					.replace("/resource/", "")

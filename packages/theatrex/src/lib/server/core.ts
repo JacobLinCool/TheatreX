@@ -31,8 +31,8 @@ export const core = {
 		return local_barriers.then(() =>
 			Promise.all(
 				core.providers
-					.filter((provider) => typeof provider.token === "undefined")
-					.map((provider) => provider.authenticate()),
+					.filter((p) => typeof p.token === "undefined")
+					.map((p) => Promise.all([p.info(), p.authenticate()])),
 			).then(() => true),
 		);
 	},

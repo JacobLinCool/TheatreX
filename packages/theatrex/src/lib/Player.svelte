@@ -10,7 +10,7 @@
 	export let id: string;
 
 	$: episodes = item.seasons.flatMap((season) => season.episodes);
-	$: episode = episodes.find((episode) => episode.id === id);
+	$: episode = episodes.find((episode) => episode.res === id);
 
 	let mounted = false;
 	onMount(() => {
@@ -27,10 +27,10 @@
 					autoplay: true,
 				});
 			}
-			const source = $page.url.origin + "/api/resource/" + episode.id;
+			const source = $page.url.origin + "/api/resource/" + episode.res;
 			if (player.src() !== source) {
 				player.src(source);
-				console.log("load source", episode.id);
+				console.log("load source", episode.res);
 			}
 
 			if (first_time) {
@@ -55,14 +55,14 @@
 							headers: {
 								"Content-Type": "application/json",
 							},
-							body: JSON.stringify({ episode: episode.id, watched, total }),
+							body: JSON.stringify({ episode: episode.res, watched, total }),
 						});
 						console.log("updated watched time", episode, watched, total);
 					}
 				});
 
 				player.on("ended", async () => {
-					const next_idx = episodes.findIndex((e) => e.id === episode?.id) + 1;
+					const next_idx = episodes.findIndex((e) => e.res === episode?.res) + 1;
 					if (next_idx < 1) {
 						return;
 					}
@@ -71,7 +71,7 @@
 					if (next_episode) {
 						$current_watching = {
 							item,
-							id: next_episode.id,
+							id: next_episode.res,
 						};
 					}
 				});

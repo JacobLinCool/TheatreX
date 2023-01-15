@@ -133,7 +133,7 @@
 				<li class="my-1">
 					<button
 						on:click={() => {
-							$current_watching = { item, id: episode.id };
+							$current_watching = { item, id: episode.res };
 						}}
 					>
 						<div class="flex w-full items-center justify-between">
