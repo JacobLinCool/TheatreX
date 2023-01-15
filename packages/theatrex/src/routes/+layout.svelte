@@ -12,7 +12,10 @@
 
 	export let data: {
 		tabs: Tab[];
+		version: string;
 	};
+
+	console.log("TheatreX Version:", data.version);
 
 	let done = false;
 	onMount(() => {

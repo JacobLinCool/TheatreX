@@ -3,6 +3,7 @@ import type { ChildProcess } from "node:child_process";
 import path from "node:path";
 import { Connector } from "@theatrex/connector";
 import type { TheatrexConfig } from "@theatrex/types";
+import package_json from "../../../package.json";
 import { config, save } from "./config";
 import fs from "./fs";
 import log from "./log";
@@ -16,6 +17,7 @@ process.on("exit", () => {
 let local_barriers = Promise.resolve();
 
 export const core = {
+	version: package_json.version,
 	providers: providers(),
 	update(new_config: TheatrexConfig) {
 		save(new_config);

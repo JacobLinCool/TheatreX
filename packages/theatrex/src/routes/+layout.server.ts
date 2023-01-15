@@ -6,5 +6,5 @@ export const load: LayoutServerLoad = async () => {
 	const info = await Promise.all(core.providers.map((provider) => provider.info()));
 	const tabs = info.map((info) => info.tabs).flat();
 
-	return { tabs };
+	return { tabs, version: core.version };
 };
