@@ -1,6 +1,6 @@
 {
 	"name": "@theatrex/provider",
-	"version": "1.0.0-dev.9",
+	"version": "1.0.0-dev.10",
 	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
