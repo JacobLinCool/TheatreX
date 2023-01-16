@@ -77,7 +77,7 @@ function providers() {
 				} as const;
 				const child =
 					path.extname(use) === ".js"
-						? spawn("node", [use], options)
+						? spawn(process.execPath, [use], options)
 						: spawn(use, options);
 
 				child.on("error", (error) => {
