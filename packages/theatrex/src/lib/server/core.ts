@@ -32,7 +32,7 @@ export const core = {
 		return local_barriers.then(() =>
 			Promise.all(
 				core.providers
-					.filter((p) => typeof p.token === "undefined")
+					.filter((p) => p.token === undefined)
 					.map((p) => Promise.all([p.info(), p.authenticate()])),
 			).then(() => true),
 		);
@@ -54,7 +54,7 @@ function providers() {
 		try {
 			new URL(use);
 		} catch {
-			use = path.normalize(path.resolve(use.replace(/^~/, os.homedir())));
+			use = normalize(use);
 			if (!locals.has(use)) {
 				const port = 20000 + port_hash(use);
 
@@ -109,7 +109,7 @@ function providers() {
 	}
 
 	return config().providers.map((provider) => {
-		const local = locals.get(provider.use);
+		const local = locals.get(normalize(provider.use));
 
 		return new Connector(
 			{
@@ -136,4 +136,8 @@ function port_hash(use: string): number {
 		hash %= 20011;
 	}
 	return hash;
+}
+
+function normalize(location: string): string {
+	return path.normalize(path.resolve(location.replace(/^~/, os.homedir())));
 }
