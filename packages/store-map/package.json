@@ -1,6 +1,6 @@
 {
 	"name": "@theatrex/store-map",
-	"version": "1.0.0-dev.8",
+	"version": "1.0.0-dev.9",
 	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
