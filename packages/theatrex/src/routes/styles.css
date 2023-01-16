@@ -23,3 +23,16 @@ main {
 video:focus {
 	@apply outline-none;
 }
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
+.draggable {
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+
+.none-draggable {
+	-webkit-app-region: no-drag;
+}

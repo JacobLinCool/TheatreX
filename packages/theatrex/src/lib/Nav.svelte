@@ -15,11 +15,11 @@
 	}
 </script>
 
-<header class="navbar bg-base-200">
+<header class="navbar bg-base-200 draggable">
 	<div class="flex-1">
-		<a class="btn btn-ghost text-light text-xl normal-case" href="/">TheatreX</a>
+		<a class="btn btn-ghost text-light none-draggable text-xl normal-case" href="/">TheatreX</a>
 
-		<div class="tabs tabs-boxed bg-transparent">
+		<div class="tabs tabs-boxed none-draggable bg-transparent">
 			{#each tabs as tab}
 				<a
 					class="tab text-light"
@@ -31,7 +31,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="flex-none gap-2">
+	<div class="none-draggable flex-none gap-2">
 		{#if $page.route.id !== "/search"}
 			<div class="form-control hidden md:block">
 				<input
