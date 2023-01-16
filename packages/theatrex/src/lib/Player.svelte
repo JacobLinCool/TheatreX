@@ -4,7 +4,7 @@
 	import videojs from "video.js";
 	import "video.js/dist/video-js.min.css";
 	import type { Item } from "@theatrex/types";
-	import { current_watching } from "./globals";
+	import { current_watching, player_hotkeys } from "./globals";
 
 	export let item: Item<true>;
 	export let id: string;
@@ -25,7 +25,40 @@
 				player = videojs("#player", {
 					controls: true,
 					autoplay: true,
+					userActions: {
+						// @ts-expect-error
+						hotkeys: (evt: KeyboardEvent) => {
+							const keys = new Set<string>();
+							if (evt.shiftKey) {
+								keys.add("Shift");
+							}
+							if (evt.ctrlKey || evt.metaKey) {
+								keys.add("Control");
+							}
+							if (evt.altKey) {
+								keys.add("alt");
+							}
+							if (
+								evt.key &&
+								["Shift", "Control", "Meta", "Alt"].indexOf(evt.key) === -1
+							) {
+								keys.add(evt.key);
+							}
+
+							for (const [key, val] of Object.entries($player_hotkeys.keys)) {
+								if (val.every((k) => keys.has(k))) {
+									evt.preventDefault();
+									evt.stopPropagation();
+									$player_hotkeys.actions[key](player, keys);
+									return;
+								}
+							}
+
+							$player_hotkeys.actions.default(player, keys);
+						},
+					},
 				});
+				player.focus();
 			}
 			const source = $page.url.origin + "/api/resource/" + episode.res;
 			if (player.src() !== source) {

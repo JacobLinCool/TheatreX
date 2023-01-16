@@ -19,3 +19,7 @@ main {
 .vjs-button > .vjs-icon-placeholder:before {
 	@apply relative;
 }
+
+video:focus {
+	@apply outline-none;
+}
