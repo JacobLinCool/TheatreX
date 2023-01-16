@@ -8,6 +8,7 @@ import type { Context } from "koa";
 import { koaBody } from "koa-body";
 import { z } from "zod";
 import Router from "@koa/router";
+import { filestore } from "@theatrex/store-file";
 import { mapstore } from "@theatrex/store-map";
 import type {
 	Store,
@@ -37,7 +38,11 @@ export class Provider<
 	protected _list: ListHandler<AuthenticationCredentials>;
 	protected _info: InfoHandler<AuthenticationCredentials>;
 
-	constructor({ dev = false, name = "theatrex:provider", store = mapstore() } = {}) {
+	constructor({
+		dev = false,
+		name = "theatrex:provider",
+		store = process.env.STORE ? filestore(process.env.STORE) : mapstore(),
+	} = {}) {
 		super();
 		this.dev = dev;
 		this.app = new Koa();
@@ -284,6 +289,7 @@ export class Provider<
 			}
 		});
 		this.log(`provider ready on port ${port}`);
+		this.log("env", { PORT: process.env.PORT, STORE: process.env.STORE });
 	}
 
 	public stop(): Promise<void> {

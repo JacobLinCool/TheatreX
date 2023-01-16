@@ -59,6 +59,7 @@ importers:
     packages/provider:
         specifiers:
             "@koa/router": ^12.0.0
+            "@theatrex/store-file": workspace:*
             "@theatrex/store-map": workspace:*
             "@theatrex/types": workspace:*
             "@types/debug": ^4.1.7
@@ -75,6 +76,7 @@ importers:
             zod: ^3.20.2
         dependencies:
             "@koa/router": 12.0.0
+            "@theatrex/store-file": link:../store-file
             "@theatrex/store-map": link:../store-map
             "@theatrex/types": link:../types
             "@types/debug": 4.1.7
@@ -152,6 +154,25 @@ importers:
             "@types/shelljs": 0.8.11
             "@types/ws": 8.5.4
             shelljs: 0.8.5
+            tsup: 6.5.0_typescript@4.9.4
+            tsx: 3.12.2
+            typedoc: 0.23.24_typescript@4.9.4
+            typescript: 4.9.4
+
+    packages/store-file:
+        specifiers:
+            "@theatrex/types": workspace:*
+            "@types/node": ^18.11.18
+            controlled-fs: ^2.3.1
+            tsup: ^6.5.0
+            tsx: ^3.12.2
+            typedoc: ^0.23.24
+            typescript: ^4.9.4
+        dependencies:
+            "@theatrex/types": link:../types
+            controlled-fs: 2.3.1
+        devDependencies:
+            "@types/node": 18.11.18
             tsup: 6.5.0_typescript@4.9.4
             tsx: 3.12.2
             typedoc: 0.23.24_typescript@4.9.4
@@ -3218,7 +3239,6 @@ packages:
             zod: 3.20.2
         transitivePeerDependencies:
             - supports-color
-        dev: true
 
     /convert-source-map/1.9.0:
         resolution:

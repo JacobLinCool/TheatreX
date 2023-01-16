@@ -1,8 +1,8 @@
-import { mapstore } from "../src";
+import { filestore } from "../src";
 
-describe("mapstore", () => {
+describe("filestore", () => {
 	test("has, get, set, delete", () => {
-		const store = mapstore();
+		const store = filestore();
 		expect(store.has("a")).toBe(false);
 		expect(store.get("a")).toBeUndefined();
 		store.set("a", 1);
@@ -14,7 +14,7 @@ describe("mapstore", () => {
 	});
 
 	test("clear, keys, values, pairs", () => {
-		const store = mapstore();
+		const store = filestore();
 		for (let i = 0; i < 3; i++) {
 			store.set(i.toString(), i);
 		}
@@ -32,31 +32,31 @@ describe("mapstore", () => {
 	});
 
 	test("support Buffer", () => {
-		const store = mapstore();
+		const store = filestore();
 		const buffer = Buffer.from("hello");
 		store.set("a", buffer);
-		expect(store.get("a")).toBe(buffer);
+		expect(store.get("a")).toEqual(buffer);
 	});
 
 	test("support Set", () => {
-		const store = mapstore();
+		const store = filestore();
 		const set = new Set([1, 2, 3]);
 		store.set("a", set);
-		expect(store.get("a")).toBe(set);
+		expect(store.get("a")).toEqual(set);
 	});
 
 	test("support Map", () => {
-		const store = mapstore();
+		const store = filestore();
 		const map = new Map([
 			["a", 1],
 			["b", 2],
 		]);
 		store.set("a", map);
-		expect(store.get("a")).toBe(map);
+		expect(store.get("a")).toEqual(map);
 	});
 
 	test("support JSON", () => {
-		const store = mapstore();
+		const store = filestore();
 		const json = { a: 1, b: 2, c: [3, 4] };
 		store.set("a", json);
 		expect(store.get("a")).toEqual(json);

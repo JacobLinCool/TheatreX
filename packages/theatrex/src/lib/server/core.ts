@@ -63,6 +63,7 @@ function providers() {
 					env: {
 						...process.env,
 						PORT: port.toString(),
+						STORE: path.join(path.dirname(use), ".store"),
 					},
 					cwd: path.dirname(use),
 				} as const;
