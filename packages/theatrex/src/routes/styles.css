@@ -36,3 +36,28 @@ video:focus {
 .none-draggable {
 	-webkit-app-region: no-drag;
 }
+
+/* Video.js player styles */
+.theatrex-player.video-js {
+	@apply text-base-content;
+}
+
+.theatrex-player .vjs-control-bar {
+	@apply bg-base-200;
+}
+
+.theatrex-player .vjs-loading-spinner {
+	@apply border-base-200;
+}
+
+.theatrex-player .vjs-slider {
+	@apply bg-base-300/80;
+}
+
+.theatrex-player .vjs-load-progress {
+	@apply bg-base-300;
+}
+
+.theatrex-player .vjs-play-progress {
+	@apply bg-base-content/70;
+}
