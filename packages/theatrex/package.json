@@ -3,9 +3,9 @@
 	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
 	"version": "1.0.0-dev.8",
 	"type": "module",
-	"main": "dist/index.js",
+	"main": "dist/index.mjs",
 	"bin": {
-		"theatrex": "dist/index.js"
+		"theatrex": "dist/index.mjs"
 	},
 	"files": [
 		"dist"
