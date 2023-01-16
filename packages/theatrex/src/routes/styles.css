@@ -13,7 +13,7 @@ main {
 }
 
 #launching-status {
-	@apply absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center text-2xl;
+	@apply absolute top-0 left-0 flex h-full w-full animate-pulse flex-col items-center justify-center text-2xl;
 }
 
 .vjs-button > .vjs-icon-placeholder:before {
