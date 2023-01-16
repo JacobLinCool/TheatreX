@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import type { VideoJsPlayer } from "video.js";
 import type { Item } from "@theatrex/types";
+import { capture } from "./capture";
 
 export const current_watching = writable<{ item: Item<true>; id: string } | undefined>(undefined);
 
@@ -13,6 +14,7 @@ export const player_hotkeys = writable({
 		forward: ["ArrowRight"],
 		fullscreen: ["f"],
 		mute: ["m"],
+		capture: ["c", "Control"],
 	},
 	actions: {
 		play: (player) => {
@@ -44,6 +46,13 @@ export const player_hotkeys = writable({
 		mute: (player) => {
 			player.muted(!player.muted());
 		},
+		capture: (player) => {
+			if (player.title) {
+				capture(player, `${player.title} - ${player.currentTime().toFixed(1)}`);
+			} else {
+				capture(player);
+			}
+		},
 		default: (player, keys) => {
 			const number = Number(keys.values().next().value);
 			if (number >= 0 || number <= 9) {
@@ -53,5 +62,5 @@ export const player_hotkeys = writable({
 
 			console.log("unhandled hotkey", keys);
 		},
-	} as Record<string, (player: VideoJsPlayer, keys: Set<string>) => void>,
+	} as Record<string, (player: VideoJsPlayer & { title?: string }, keys: Set<string>) => void>,
 });
