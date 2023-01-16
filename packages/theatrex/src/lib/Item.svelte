@@ -124,11 +124,13 @@
 
 	{#each item.seasons as season}
 		<ul class="menu rounded-box p-2">
-			{#if season.name}
-				<li class="menu-title">
-					<span>{season.name}</span>
-				</li>
-			{/if}
+			<div class="menu-title flex items-center justify-between">
+				<span>{season.name}</span>
+				<span
+					>{season.episodes.length} episode{season.episodes.length !== 1 ? "s" : ""}</span
+				>
+			</div>
+
 			{#each season.episodes as episode}
 				<li class="my-1">
 					<button
