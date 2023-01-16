@@ -102,6 +102,10 @@ function providers() {
 							};
 							child.stdout.on("data", resolver);
 							child.stderr.on("data", resolver);
+
+							child.once("exit", (code) => {
+								resolve();
+							});
 						}),
 				);
 			}
