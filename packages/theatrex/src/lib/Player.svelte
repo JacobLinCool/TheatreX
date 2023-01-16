@@ -17,7 +17,10 @@
 		mounted = true;
 	});
 
-	let player: videojs.Player;
+	let show_info = false;
+	let show_info_deferring: any = 0;
+
+	let player: videojs.Player & { title?: string };
 	$: {
 		if (mounted && episode) {
 			const first_time = !player;
@@ -59,11 +62,14 @@
 					},
 				});
 				player.focus();
+
+				inject_panel();
 			}
 			const source = $page.url.origin + "/api/resource/" + episode.res;
 			if (player.src() !== source) {
 				player.src(source);
 				console.log("load source", episode.res);
+				player.title = `${item.name} - ${episode.name}`;
 			}
 
 			if (first_time) {
@@ -108,6 +114,17 @@
 						};
 					}
 				});
+
+				player.on("pause", () => {
+					show_info_deferring = setTimeout(() => {
+						show_info = true;
+					}, 1500);
+				});
+
+				player.on("play", () => {
+					show_info = false;
+					clearTimeout(show_info_deferring);
+				});
 			}
 		}
 	}
@@ -119,11 +136,22 @@
 		$current_watching = undefined;
 		mounted = false;
 	}
+
+	function inject_panel() {
+		const player = document.querySelector(".theatrex-player");
+		const panel = document.querySelector("#info-panel");
+
+		if (!player || !panel) {
+			return;
+		}
+
+		player.appendChild(panel);
+	}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class="bg-base-300/70 fixed top-0 left-0 flex h-full w-full items-center justify-center"
+	class="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black/80"
 	on:click={(evt) => {
 		if (evt.target === evt.currentTarget) {
 			hide();
@@ -132,6 +160,41 @@
 >
 	<div class="flex aspect-video max-h-[90%] w-full items-center justify-center">
 		<!-- svelte-ignore a11y-media-has-caption -->
-		<video id="player" class="video-js max-h-full w-full" />
+		<video id="player" class="theatrex-player video-js max-h-full w-full" />
+		<div
+			id="info-panel"
+			class="pointer-events-none absolute top-0 left-0 h-full w-full {show_info
+				? 'opacity-100'
+				: 'opacity-0'} flex items-center justify-between bg-black/60 p-4 transition-opacity duration-500"
+		>
+			<div>
+				<h1 class="text-base-content my-2 text-xl md:text-2xl lg:text-4xl">
+					{item.name}
+				</h1>
+				<h2 class="text-base-content my-2 text-lg md:text-xl lg:text-2xl">
+					{episode?.name || ""}
+				</h2>
+				<p class="text-base-content my-2">
+					{episode?.description || ""}
+				</p>
+			</div>
+			<div
+				class="carousel carousel-vertical hidden h-full p-2 lg:block"
+				class:pointer-events-auto={show_info}
+			>
+				{#each episodes as ep}
+					<div
+						class="carousel-item btn my-2 min-w-[10rem] {episode?.res === ep.res
+							? 'btn-outline'
+							: 'btn-ghost'}"
+						on:click={() => {
+							$current_watching = { item, id: ep.res };
+						}}
+					>
+						{ep.name}
+					</div>
+				{/each}
+			</div>
+		</div>
 	</div>
 </div>
