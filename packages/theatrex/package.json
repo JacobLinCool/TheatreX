@@ -3,16 +3,16 @@
 	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
 	"version": "1.0.0-dev.4",
 	"type": "module",
-	"main": "build/index.js",
+	"main": "dist/index.js",
 	"bin": {
-		"theatrex": "build/index.js"
+		"theatrex": "dist/index.js"
 	},
 	"files": [
-		"build"
+		"dist"
 	],
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && tsup && cp -r build/client dist/client",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
