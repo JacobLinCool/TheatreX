@@ -75,6 +75,14 @@ const structure = z.object({
 			z.record(z.string().datetime(), File(z.string(), ...serializer.string)),
 		),
 	}),
+
+	"local-provider": z.record(
+		z.string().describe("provider hash"),
+		z.object({
+			provider: File(z.instanceof(Buffer), ...serializer.buffer),
+			store: z.record(z.string(), File(z.instanceof(Buffer), ...serializer.buffer)),
+		}),
+	),
 });
 
 export const fs = mount(path.join(os.homedir(), ".theatrex"), structure);

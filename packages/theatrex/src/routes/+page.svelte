@@ -3,6 +3,7 @@
 	import List from "$lib/List.svelte";
 	import { onMount } from "svelte";
 	import { themeChange } from "theme-change";
+	import Icon from "@iconify/svelte";
 	import type { Info, TheatrexConfig, ListItem } from "@theatrex/types";
 	import { themes } from "./theme";
 
@@ -44,6 +45,35 @@
 	async function reload() {
 		await fetch("/api/provider/reload");
 		location.reload();
+	}
+
+	async function import_provider(evt: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		const file = evt.currentTarget.files?.[0];
+		if (!file) {
+			return;
+		}
+
+		const buffer = await file.arrayBuffer();
+		const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buffer))]
+			.map((byte) => byte.toString(16).padStart(2, "0"))
+			.join("")
+			.slice(0, 8);
+
+		const form = new FormData();
+		form.append("file", file, hash);
+
+		const res = await fetch("/api/provider/import", {
+			method: "POST",
+			body: form,
+		});
+
+		const { error, path } = await res.json();
+		if (error) {
+			alert(error);
+			return;
+		}
+
+		new_provider.use = path;
 	}
 </script>
 
@@ -143,6 +173,19 @@
 					<div class="form-control w-full">
 						<span class="label">
 							<span class="label-text">Provider Path / URL</span>
+							<span class="label-text">
+								<label for="import-provider">
+									<span class="btn btn-sm btn-outline">
+										<Icon icon="mdi:import" />
+									</span>
+								</label>
+								<input
+									type="file"
+									id="import-provider"
+									on:change={import_provider}
+									class="hidden"
+								/>
+							</span>
 						</span>
 						<input
 							type="text"
