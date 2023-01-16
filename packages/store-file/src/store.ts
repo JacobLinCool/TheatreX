@@ -15,7 +15,7 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 
 	return {
 		space<V = T>(name: string): Store<V> {
-			name = name.replace(/[^a-z0-9]/gi, "-");
+			name = normalize(name);
 			if (!spaces.has(name)) {
 				spaces.set(name, filestore(path.join(dir, name)));
 			}
@@ -23,10 +23,10 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 			return spaces.get(name) as Store<V>;
 		},
 		has(key: string): boolean {
-			return fs.data[key].$exists;
+			return fs.data[normalize(key)].$exists;
 		},
 		get<V = T>(key: string): V | undefined {
-			const data = fs.data[key].$data;
+			const data = fs.data[normalize(key)].$data;
 			if (!data) {
 				return undefined;
 			}
@@ -47,6 +47,7 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 			}
 		},
 		set<V = T>(key: string, value: V): void {
+			key = normalize(key);
 			if (value instanceof Buffer) {
 				fs.data[key].$data = Buffer.concat([TYPE.BUFFER, value]);
 			} else if (value instanceof Set) {
@@ -64,7 +65,7 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 			}
 		},
 		delete(key: string): void {
-			fs.data[key].$data = undefined;
+			fs.data[normalize(key)].$data = undefined;
 		},
 		clear(): void {
 			fs.data.$remove();
@@ -79,4 +80,8 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 			return (this.keys() as string[]).map((key) => [key, this.get(key)]) as any;
 		},
 	};
+}
+
+export function normalize(key: string): string {
+	return key.replace(/[^a-z0-9]/gi, "-");
 }
