@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import type { ChildProcess } from "node:child_process";
+import os from "node:os";
 import path from "node:path";
 import { Connector } from "@theatrex/connector";
 import type { TheatrexConfig } from "@theatrex/types";
@@ -49,10 +50,11 @@ function providers() {
 		}
 	}
 
-	for (const use of uses) {
+	for (let use of uses) {
 		try {
 			new URL(use);
 		} catch {
+			use = path.normalize(path.resolve(use.replace(/^~/, os.homedir())));
 			if (!locals.has(use)) {
 				const port = 20000 + port_hash(use);
 
