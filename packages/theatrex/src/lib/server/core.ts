@@ -10,11 +10,19 @@ import fs from "./fs";
 import log from "./log";
 
 const locals = new Map<string, { port: number; child: ChildProcess }>();
+
 process.on("exit", () => {
 	for (const { child } of locals.values()) {
 		child.kill();
 	}
 });
+process.on("SIGINT", () => {
+	process.exit(0);
+});
+process.on("SIGTERM", () => {
+	process.exit(0);
+});
+
 let local_barriers = Promise.resolve();
 
 export const core = {
