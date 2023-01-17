@@ -1,3 +1,5 @@
+import os from "node:os";
+import path from "node:path";
 import core from "./core";
 
 export async function get_item(id: string) {
@@ -38,4 +40,23 @@ export function update_history(
 
 export function sort_object_by_key<T>(obj: Record<string, T>): Record<string, T> {
 	return Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
+}
+
+export function port_hash(use: string): number {
+	use = use
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, "")
+		.trim();
+
+	let hash = 0;
+	for (let i = 0; i < use.length; i++) {
+		hash = (hash << 5) - hash + use.charCodeAt(i);
+		hash |= 0;
+		hash %= 20011;
+	}
+	return hash;
+}
+
+export function normalize(location: string): string {
+	return path.normalize(path.resolve(location.replace(/^~/, os.homedir())));
 }
