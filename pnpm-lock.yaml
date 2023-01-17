@@ -97,13 +97,20 @@ importers:
         specifiers:
             "@theatrex/provider": workspace:*
             "@theatrex/types": workspace:*
+            "@types/debug": ^4.1.7
             "@types/express": ^4.17.15
             "@types/node": ^18.11.18
+            "@types/node-fetch": ^2.6.2
             "@types/shelljs": ^0.8.11
+            "@types/tough-cookie": ^4.0.2
             bahamut-anime: ^1.1.0
             cheerio: 1.0.0-rc.12
-            cross-fetch: ^3.1.5
+            debug: ^4.3.4
+            fetch-cookie: ^2.1.0
+            node-fetch: ^2.6.7
+            playwright-core: ^1.29.2
             shelljs: ^0.8.5
+            tough-cookie: ^4.1.2
             tsup: ^6.5.0
             tsx: ^3.12.2
             typedoc: ^0.23.24
@@ -112,12 +119,19 @@ importers:
             "@theatrex/provider": link:../provider
             bahamut-anime: 1.1.0
             cheerio: 1.0.0-rc.12
-            cross-fetch: 3.1.5
+            debug: 4.3.4
+            fetch-cookie: 2.1.0
+            node-fetch: 2.6.7
+            playwright-core: 1.29.2
+            tough-cookie: 4.1.2
         devDependencies:
             "@theatrex/types": link:../types
+            "@types/debug": 4.1.7
             "@types/express": 4.17.15
             "@types/node": 18.11.18
+            "@types/node-fetch": 2.6.2
             "@types/shelljs": 0.8.11
+            "@types/tough-cookie": 4.0.2
             shelljs: 0.8.5
             tsup: 6.5.0_typescript@4.9.4
             tsx: 3.12.2
@@ -2151,6 +2165,13 @@ packages:
             }
         dev: true
 
+    /@types/tough-cookie/4.0.2:
+        resolution:
+            {
+                integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==,
+            }
+        dev: true
+
     /@types/video.js/7.3.50:
         resolution:
             {
@@ -4147,6 +4168,16 @@ packages:
         dependencies:
             bser: 2.1.1
         dev: true
+
+    /fetch-cookie/2.1.0:
+        resolution:
+            {
+                integrity: sha512-39+cZRbWfbibmj22R2Jy6dmTbAWC+oqun1f1FzQaNurkPDUP4C38jpeZbiXCR88RKRVDp8UcDrbFXkNhN+NjYg==,
+            }
+        dependencies:
+            set-cookie-parser: 2.5.1
+            tough-cookie: 4.1.2
+        dev: false
 
     /fill-range/7.0.1:
         resolution:
@@ -6460,7 +6491,6 @@ packages:
             }
         engines: { node: ">=14" }
         hasBin: true
-        dev: true
 
     /postcss-import/14.1.0_postcss@8.4.21:
         resolution:
@@ -6637,6 +6667,13 @@ packages:
             sisteransi: 1.0.5
         dev: true
 
+    /psl/1.9.0:
+        resolution:
+            {
+                integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==,
+            }
+        dev: false
+
     /punycode/1.4.1:
         resolution:
             {
@@ -6650,7 +6687,6 @@ packages:
                 integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==,
             }
         engines: { node: ">=6" }
-        dev: true
 
     /qs/6.11.0:
         resolution:
@@ -6660,6 +6696,13 @@ packages:
         engines: { node: ">=0.6" }
         dependencies:
             side-channel: 1.0.4
+        dev: false
+
+    /querystringify/2.2.0:
+        resolution:
+            {
+                integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==,
+            }
         dev: false
 
     /queue-microtask/1.2.3:
@@ -6789,6 +6832,13 @@ packages:
             }
         engines: { node: ">=0.10.0" }
         dev: true
+
+    /requires-port/1.0.0:
+        resolution:
+            {
+                integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==,
+            }
+        dev: false
 
     /resolve-cwd/3.0.0:
         resolution:
@@ -7024,7 +7074,6 @@ packages:
             {
                 integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==,
             }
-        dev: true
 
     /setprototypeof/1.2.0:
         resolution:
@@ -7741,6 +7790,19 @@ packages:
         engines: { node: ">=6" }
         dev: true
 
+    /tough-cookie/4.1.2:
+        resolution:
+            {
+                integrity: sha512-G9fqXWoYFZgTc2z8Q5zaHy/vJMjm+WV0AkAeHxVCQiEB1b+dGvWzFW6QV07cY5jQ5gRkeid2qIkzkxUnmoQZUQ==,
+            }
+        engines: { node: ">=6" }
+        dependencies:
+            psl: 1.9.0
+            punycode: 2.1.1
+            universalify: 0.2.0
+            url-parse: 1.5.10
+        dev: false
+
     /tr46/0.0.3:
         resolution:
             {
@@ -7994,6 +8056,14 @@ packages:
             busboy: 1.6.0
         dev: true
 
+    /universalify/0.2.0:
+        resolution:
+            {
+                integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==,
+            }
+        engines: { node: ">= 4.0.0" }
+        dev: false
+
     /unpipe/1.0.0:
         resolution:
             {
@@ -8034,6 +8104,16 @@ packages:
         dependencies:
             punycode: 2.1.1
         dev: true
+
+    /url-parse/1.5.10:
+        resolution:
+            {
+                integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==,
+            }
+        dependencies:
+            querystringify: 2.2.0
+            requires-port: 1.0.0
+        dev: false
 
     /url-toolkit/2.2.5:
         resolution:

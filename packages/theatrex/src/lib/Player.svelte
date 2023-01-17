@@ -125,6 +125,12 @@
 					show_info = false;
 					clearTimeout(show_info_deferring);
 				});
+
+				player.on("ready", () => {
+					player.tech().on("usage", (evt) => {
+						console.log("usage", evt);
+					});
+				});
 			}
 		}
 	}
@@ -160,7 +166,7 @@
 >
 	<div class="flex aspect-video max-h-[90%] w-full items-center justify-center">
 		<!-- svelte-ignore a11y-media-has-caption -->
-		<video id="player" class="theatrex-player video-js max-h-full w-full" />
+		<video id="player" class="theatrex-player video-js h-full w-full" />
 		<div
 			id="info-panel"
 			class="pointer-events-none absolute top-0 left-0 h-full w-full {show_info
