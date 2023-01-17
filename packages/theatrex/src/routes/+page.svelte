@@ -166,7 +166,7 @@
 
 			<div class="border-base-300 bg-base-100 rounded-box collapse border" tabindex="-1">
 				<input type="checkbox" />
-				<div class="collapse-title font-medium">
+				<div class="collapse-title break-all font-medium">
 					<span class="text-lg">Add New Provider</span>
 				</div>
 				<div class="collapse-content">
