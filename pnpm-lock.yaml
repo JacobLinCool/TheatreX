@@ -103,11 +103,11 @@ importers:
             "@types/node-fetch": ^2.6.2
             "@types/shelljs": ^0.8.11
             "@types/tough-cookie": ^4.0.2
-            bahamut-anime: ^1.1.0
+            bahamut-anime: ^1.2.0
             cheerio: 1.0.0-rc.12
             debug: ^4.3.4
             fetch-cookie: ^2.1.0
-            node-fetch: ^2.6.7
+            node-fetch: ^2.6.8
             playwright-core: ^1.29.2
             shelljs: ^0.8.5
             tough-cookie: ^4.1.2
@@ -117,11 +117,11 @@ importers:
             typescript: ^4.9.4
         dependencies:
             "@theatrex/provider": link:../provider
-            bahamut-anime: 1.1.0
+            bahamut-anime: 1.2.0
             cheerio: 1.0.0-rc.12
             debug: 4.3.4
             fetch-cookie: 2.1.0
-            node-fetch: 2.6.7
+            node-fetch: 2.6.8
             playwright-core: 1.29.2
             tough-cookie: 4.1.2
         devDependencies:
@@ -213,8 +213,8 @@ importers:
         specifiers:
             "@iconify/svelte": ^3.0.1
             "@playwright/test": ^1.29.2
-            "@sveltejs/adapter-node": ^1.1.1
-            "@sveltejs/kit": ^1.1.0
+            "@sveltejs/adapter-node": ^1.1.3
+            "@sveltejs/kit": ^1.1.3
             "@theatrex/connector": workspace:*
             "@theatrex/types": workspace:*
             "@types/cookie": ^0.5.1
@@ -224,7 +224,7 @@ importers:
             "@types/video.js": ^7.3.50
             autoprefixer: ^10.4.13
             controlled-fs: ^2.3.1
-            daisyui: ^2.46.1
+            daisyui: ^2.47.0
             debug: ^4.3.4
             js-yaml: ^4.1.0
             postcss: ^8.4.21
@@ -238,15 +238,15 @@ importers:
             tslib: ^2.4.1
             tsup: ^6.5.0
             typescript: ^4.9.4
-            video.js: ^7.20.3
+            video.js: ^7.21.1
             vite: ^4.0.4
-            vitest: ^0.27.1
+            vitest: ^0.27.2
             zod: ^3.20.2
         devDependencies:
             "@iconify/svelte": 3.0.1_svelte@3.55.1
             "@playwright/test": 1.29.2
-            "@sveltejs/adapter-node": 1.1.1_@sveltejs+kit@1.1.0
-            "@sveltejs/kit": 1.1.0_svelte@3.55.1+vite@4.0.4
+            "@sveltejs/adapter-node": 1.1.3_@sveltejs+kit@1.1.3
+            "@sveltejs/kit": 1.1.3_svelte@3.55.1+vite@4.0.4
             "@theatrex/connector": link:../connector
             "@theatrex/types": link:../types
             "@types/cookie": 0.5.1
@@ -256,7 +256,7 @@ importers:
             "@types/video.js": 7.3.50
             autoprefixer: 10.4.13_postcss@8.4.21
             controlled-fs: 2.3.1
-            daisyui: 2.46.1_gbtt6ss3tbiz4yjtvdr6fbrj44
+            daisyui: 2.47.0_gbtt6ss3tbiz4yjtvdr6fbrj44
             debug: 4.3.4
             js-yaml: 4.1.0
             postcss: 8.4.21
@@ -270,9 +270,9 @@ importers:
             tslib: 2.4.1
             tsup: 6.5.0_k22f457wtryv7dv7ltdlwpdpdm
             typescript: 4.9.4
-            video.js: 7.20.3
+            video.js: 7.21.1
             vite: 4.0.4
-            vitest: 0.27.1
+            vitest: 0.27.2
             zod: 3.20.2
 
     packages/types:
@@ -1688,10 +1688,10 @@ packages:
             "@sinonjs/commons": 1.8.6
         dev: true
 
-    /@sveltejs/adapter-node/1.1.1_@sveltejs+kit@1.1.0:
+    /@sveltejs/adapter-node/1.1.3_@sveltejs+kit@1.1.3:
         resolution:
             {
-                integrity: sha512-APCKDP3fE6iMYMqIL0ba0KI5T8ctuztSqx9lb+GTKWGlw3Rk74utiR9NiegkHUj6VJuBRhhVc+0Fh7AraJpMUg==,
+                integrity: sha512-CXNYbYVAO8PlN95toqQRR6+QaFT8bejShDbmMwJfdokNpscjgxYbS8oAcWqrizxfPTBfyHlW+kDbu5KuWhxUNA==,
             }
         peerDependencies:
             "@sveltejs/kit": ^1.0.0
@@ -1699,14 +1699,14 @@ packages:
             "@rollup/plugin-commonjs": 24.0.0_rollup@3.9.1
             "@rollup/plugin-json": 6.0.0_rollup@3.9.1
             "@rollup/plugin-node-resolve": 15.0.1_rollup@3.9.1
-            "@sveltejs/kit": 1.1.0_svelte@3.55.1+vite@4.0.4
+            "@sveltejs/kit": 1.1.3_svelte@3.55.1+vite@4.0.4
             rollup: 3.9.1
         dev: true
 
-    /@sveltejs/kit/1.1.0_svelte@3.55.1+vite@4.0.4:
+    /@sveltejs/kit/1.1.3_svelte@3.55.1+vite@4.0.4:
         resolution:
             {
-                integrity: sha512-SSAOaEpiBtR7l4Y/jN+AGHonpZUQ2tcl4yhE7S+rqSJA8iw8dxiWPVpNe7JI3N70hXVylezTj9I6P3cykq8a1Q==,
+                integrity: sha512-LVsJjJmimUf+p26EpBEZ6lDdwk+WqNGPyy9MQ1HVYLgj5AEECATMeg8OlmUujh7bW2Tib0Cag1UWI7zMMe66WA==,
             }
         engines: { node: ^16.14 || >=18 }
         hasBin: true
@@ -2206,10 +2206,10 @@ packages:
             "@types/yargs-parser": 21.0.0
         dev: true
 
-    /@videojs/http-streaming/2.14.3_video.js@7.20.3:
+    /@videojs/http-streaming/2.15.1_video.js@7.21.1:
         resolution:
             {
-                integrity: sha512-2tFwxCaNbcEZzQugWf8EERwNMyNtspfHnvxRGRABQs09W/5SqmkWFuGWfUAm4wQKlXGfdPyAJ1338ASl459xAA==,
+                integrity: sha512-/uuN3bVkEeJAdrhu5Hyb19JoUo3CMys7yf2C1vUjeL1wQaZ4Oe8JrZzRrnWZ0rjvPgKfNLPXQomsRtgrMoRMJQ==,
             }
         engines: { node: ">=8", npm: ">=5" }
         peerDependencies:
@@ -2219,10 +2219,10 @@ packages:
             "@videojs/vhs-utils": 3.0.5
             aes-decrypter: 3.1.3
             global: 4.4.0
-            m3u8-parser: 4.7.1
-            mpd-parser: 0.21.1
+            m3u8-parser: 4.8.0
+            mpd-parser: 0.22.1
             mux.js: 6.0.1
-            video.js: 7.20.3
+            video.js: 7.21.1
         dev: true
 
     /@videojs/vhs-utils/3.0.5:
@@ -2248,10 +2248,10 @@ packages:
             is-function: 1.0.2
         dev: true
 
-    /@xmldom/xmldom/0.7.9:
+    /@xmldom/xmldom/0.8.6:
         resolution:
             {
-                integrity: sha512-yceMpm/xd4W2a85iqZyO09gTnHvXF6pyiWjD2jcOJs7hRoZtNNOO1eJlhHj1ixA+xip2hOyGn+LgcvLCMo5zXA==,
+                integrity: sha512-uRjjusqpoqfmRkTaNuLJ2VohVr67Q5YwDATW3VU7PfzTj6IRaihGrYI7zckGZjxQPBIp63nfvJbM+Yu5ICh0Bg==,
             }
         engines: { node: ">=10.0.0" }
         dev: true
@@ -2615,10 +2615,10 @@ packages:
             babel-preset-current-node-syntax: 1.0.1_@babel+core@7.20.12
         dev: true
 
-    /bahamut-anime/1.1.0:
+    /bahamut-anime/1.2.0:
         resolution:
             {
-                integrity: sha512-8pu0Q+RQdrVfzD+G+lFbJVU7R/4j1nj38hg8dvwJTADZ+LLqk/qJGUm8DNhCVkUU957ix1b2yH9rzYb/x5BzRw==,
+                integrity: sha512-6T5/G1OMdgO6cwZiEMxBsvu848deHXJZbpCukFpRTwqhNM73w5kE++raxdbpC6VZIo2AVqbV4nIG+kYLFls+Ng==,
             }
         dependencies:
             cross-fetch: 3.1.5
@@ -3359,10 +3359,10 @@ packages:
         hasBin: true
         dev: true
 
-    /daisyui/2.46.1_gbtt6ss3tbiz4yjtvdr6fbrj44:
+    /daisyui/2.47.0_gbtt6ss3tbiz4yjtvdr6fbrj44:
         resolution:
             {
-                integrity: sha512-i59+nLuzzPAVOhNhot3KLtt6stfYeCIPXs9uiLcpXjykpqxHfBA3W6hQWOUWPMwfqhyQd0WKub3sydtPGjzLtA==,
+                integrity: sha512-svZpXKldtHjXTEdj/lu2n7b+EQJSatqvmVB59k4dhCDOYUhUZ3jtGuPrgOJlPysHhDjxjCRWWug/fgV5e8tc/w==,
             }
         peerDependencies:
             autoprefixer: ^10.0.2
@@ -5754,10 +5754,10 @@ packages:
             }
         dev: true
 
-    /m3u8-parser/4.7.1:
+    /m3u8-parser/4.8.0:
         resolution:
             {
-                integrity: sha512-pbrQwiMiq+MmI9bl7UjtPT3AK603PV9bogNlr83uC+X9IoxqL5E4k7kU7fMQ0dpRgxgeSMygqUa0IMLQNXLBNA==,
+                integrity: sha512-UqA2a/Pw3liR6Df3gwxrqghCP17OpPlQj6RBPLYygf/ZSQ4MoSgvdvhvt35qV+3NaaA0FSZx93Ix+2brT1U7cA==,
             }
         dependencies:
             "@babel/runtime": 7.20.7
@@ -5976,16 +5976,16 @@ packages:
             ufo: 1.0.1
         dev: true
 
-    /mpd-parser/0.21.1:
+    /mpd-parser/0.22.1:
         resolution:
             {
-                integrity: sha512-BxlSXWbKE1n7eyEPBnTEkrzhS3PdmkkKdM1pgKbPnPOH0WFZIc0sPOWi7m0Uo3Wd2a4Or8Qf4ZbS7+ASqQ49fw==,
+                integrity: sha512-fwBebvpyPUU8bOzvhX0VQZgSohncbgYwUyJJoTSNpmy7ccD2ryiCvM7oRkn/xQH5cv73/xU7rJSNCLjdGFor0Q==,
             }
         hasBin: true
         dependencies:
             "@babel/runtime": 7.20.7
             "@videojs/vhs-utils": 3.0.5
-            "@xmldom/xmldom": 0.7.9
+            "@xmldom/xmldom": 0.8.6
             global: 4.4.0
         dev: true
 
@@ -8158,21 +8158,21 @@ packages:
             }
         engines: { node: ">= 0.8" }
 
-    /video.js/7.20.3:
+    /video.js/7.21.1:
         resolution:
             {
-                integrity: sha512-JMspxaK74LdfWcv69XWhX4rILywz/eInOVPdKefpQiZJSMD5O8xXYueqACP2Q5yqKstycgmmEKlJzZ+kVmDciw==,
+                integrity: sha512-AvHfr14ePDHCfW5Lx35BvXk7oIonxF6VGhSxocmTyqotkQpxwYdmt4tnQSV7MYzNrYHb0GI8tJMt20NDkCQrxg==,
             }
         dependencies:
             "@babel/runtime": 7.20.7
-            "@videojs/http-streaming": 2.14.3_video.js@7.20.3
+            "@videojs/http-streaming": 2.15.1_video.js@7.21.1
             "@videojs/vhs-utils": 3.0.5
             "@videojs/xhr": 2.6.0
             aes-decrypter: 3.1.3
             global: 4.4.0
             keycode: 2.2.1
-            m3u8-parser: 4.7.1
-            mpd-parser: 0.21.1
+            m3u8-parser: 4.8.0
+            mpd-parser: 0.22.1
             mux.js: 6.0.1
             safe-json-parse: 4.0.0
             videojs-font: 3.2.0
@@ -8195,10 +8195,10 @@ packages:
             global: 4.4.0
         dev: true
 
-    /vite-node/0.27.1_@types+node@18.11.18:
+    /vite-node/0.27.2_@types+node@18.11.18:
         resolution:
             {
-                integrity: sha512-d6+ue/3NzsfndWaPbYh/bFkHbmAWfDXI4B874zRx+WREnG6CUHUbBC8lKaRYZjeR6gCPN5m1aVNNRXBYICA9XA==,
+                integrity: sha512-IDwuVhslF10qCnWOGJui7/2KksAOBHi+UbVo6Pqt4f5lgn+kS2sVvYDsETRG5PSuslisGB5CFGvb9I6FQgymBQ==,
             }
         engines: { node: ">=v14.16.0" }
         hasBin: true
@@ -8308,10 +8308,10 @@ packages:
             vite: 4.0.4
         dev: true
 
-    /vitest/0.27.1:
+    /vitest/0.27.2:
         resolution:
             {
-                integrity: sha512-1sIpQ1DVFTEn7c1ici1XHcVfdU4nKiBmPtPAtGKJJJLuJjojTv/OHGgcf69P57alM4ty8V4NMv+7Yoi5Cxqx9g==,
+                integrity: sha512-y7tdsL2uaQy+KF18AlmNHZe29ukyFytlxrpSTwwmgLE2XHR/aPucJP9FLjWoqjgqFlXzRAjHlFJLU+HDyI/OsA==,
             }
         engines: { node: ">=v14.16.0" }
         hasBin: true
@@ -8349,7 +8349,7 @@ packages:
             tinypool: 0.3.0
             tinyspy: 1.0.2
             vite: 4.0.4_@types+node@18.11.18
-            vite-node: 0.27.1_@types+node@18.11.18
+            vite-node: 0.27.2_@types+node@18.11.18
             why-is-node-running: 2.2.2
         transitivePeerDependencies:
             - less
