@@ -83,6 +83,14 @@ const structure = z.object({
 			store: z.record(z.string(), File(z.instanceof(Buffer), ...serializer.buffer)),
 		}),
 	),
+
+	".snapshots": z.record(
+		z.string().describe("provider prefix"),
+		z.record(
+			z.string().describe("item id"),
+			File(z.object({ count: z.number() }), ...serializer.json),
+		),
+	),
 });
 
 export const fs = mount(path.join(os.homedir(), ".theatrex"), structure);

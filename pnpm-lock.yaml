@@ -228,6 +228,7 @@ importers:
             debug: ^4.3.4
             js-yaml: ^4.1.0
             postcss: ^8.4.21
+            reconnecting-eventsource: ^1.6.2
             shelljs: ^0.8.5
             svelte: ^3.55.1
             svelte-check: ^3.0.2
@@ -259,6 +260,7 @@ importers:
             debug: 4.3.4
             js-yaml: 4.1.0
             postcss: 8.4.21
+            reconnecting-eventsource: 1.6.2
             shelljs: 0.8.5
             svelte: 3.55.1
             svelte-check: 3.0.2_pehl75e5jsy22vp33udjja4soi
@@ -6788,6 +6790,14 @@ packages:
         engines: { node: ">= 0.10" }
         dependencies:
             resolve: 1.22.1
+        dev: true
+
+    /reconnecting-eventsource/1.6.2:
+        resolution:
+            {
+                integrity: sha512-vHhoxVLbA2YcfljWMKEbgR1KVTgwIrnyh/bzVJc+gfQbGcUIToLL6jNhkUL4E+9FbnAcfUVNLIw2YCiliTg/4g==,
+            }
+        engines: { node: ">=12.0.0" }
         dev: true
 
     /regenerator-runtime/0.13.11:

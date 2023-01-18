@@ -3,6 +3,7 @@
 	import Nav from "$lib/Nav.svelte";
 	import PageTransitions from "$lib/PageTransitions.svelte";
 	import Player from "$lib/Player.svelte";
+	import { Event } from "$lib/event";
 	import { current_watching } from "$lib/globals";
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
@@ -15,10 +16,9 @@
 		version: string;
 	};
 
-	console.log("TheatreX Version:", data.version);
-
 	let done = false;
 	onMount(() => {
+		console.log("TheatreX Version:", data.version);
 		try {
 			document.querySelector("#launching-status")?.remove();
 		} catch {}
@@ -37,6 +37,17 @@
 		};
 
 		document.addEventListener("keydown", keydown);
+		new Event("ping").listen(console.log);
+		new Event("notification").listen((data) => {
+			if (data.type === "notify") {
+				new Notification(data.title, {
+					body: data.content,
+					icon: data.icon || "/theatrex-128.png",
+				});
+			}
+		});
+
+		Notification.requestPermission();
 	});
 
 	$: {

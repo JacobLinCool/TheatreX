@@ -1,4 +1,5 @@
 import fs from "$lib/server/fs";
+import { take_snapshot } from "$lib/server/notification";
 import { get_item, sort_object_by_key, update_history } from "$lib/server/utils";
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "@sveltejs/kit";
@@ -42,6 +43,8 @@ export const POST: RequestHandler = async ({ params, request }) => {
 			fs.history.timeline[key].$data || [],
 			record,
 		);
+
+		take_snapshot(prefix, rest.join("::"));
 
 		return json(result);
 	} catch (err) {
