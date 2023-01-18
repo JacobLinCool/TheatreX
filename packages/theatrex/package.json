@@ -12,7 +12,7 @@
 	],
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && tsup && cp -r build/client dist/client",
+		"build": "vite build && tsup && cp -r build/client/. dist/client/",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
