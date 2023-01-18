@@ -18,14 +18,14 @@ export type SearchHandler<T extends BaseAuthenticationCredentials> = (data: {
 }) => Promise<SearchResult[]>;
 
 /**
- * @returns `Buffer` or `string` for binary data, `URL` for redirect `undefined` for 404
+ * @returns `Buffer` or `string` for binary data, `URL` for 302 redirect `undefined` for 404
  */
 export type ResourceHandler<T extends BaseAuthenticationCredentials> = (data: {
 	id: string;
 	auth: AuthenticatedUser<T>;
 	store: Store;
 	ctx: Context;
-}) => Promise<Buffer | URL | string | undefined>;
+}) => Promise<NodeJS.ReadableStream | Buffer | URL | string | undefined>;
 
 export type ItemHandler<T extends BaseAuthenticationCredentials> = (data: {
 	id: string;

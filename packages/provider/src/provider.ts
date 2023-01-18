@@ -160,6 +160,11 @@ export class Provider<
 					await next();
 					return;
 				}
+				if (result && "pipe" in result) {
+					ctx.body = result;
+					await next();
+					return;
+				}
 
 				ctx.status = 404;
 				ctx.body = "Not found";
