@@ -62,14 +62,12 @@
 </script>
 
 {#if done}
-	<div class="flex h-full w-full flex-col">
+	<div class="flex h-full w-full flex-col" in:fade={{ duration: 200 }}>
 		<Nav tabs={data.tabs} />
 		<div id="main-container" class="w-full flex-1 overflow-auto">
-			{#key $page.route.id}
-				<PageTransitions>
-					<slot />
-				</PageTransitions>
-			{/key}
+			<PageTransitions>
+				<slot />
+			</PageTransitions>
 		</div>
 	</div>
 
