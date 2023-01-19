@@ -53,7 +53,7 @@
 			</div>
 			<div class="block md:hidden">
 				<a href="/search" class="btn btn-ghost">
-					<Icon icon="mdi:magnify" class="text-base-content hover:text-accent" />
+					<Icon icon="mdi:magnify" class="text-base-content text-xl" />
 				</a>
 			</div>
 		{/if}
