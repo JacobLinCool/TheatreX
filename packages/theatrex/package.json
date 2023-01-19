@@ -22,8 +22,8 @@
 	"devDependencies": {
 		"@iconify/svelte": "^3.0.1",
 		"@playwright/test": "^1.29.2",
-		"@sveltejs/adapter-node": "^1.1.3",
-		"@sveltejs/kit": "^1.1.3",
+		"@sveltejs/adapter-node": "^1.1.4",
+		"@sveltejs/kit": "^1.1.4",
 		"@theatrex/connector": "workspace:*",
 		"@theatrex/types": "workspace:*",
 		"@types/cookie": "^0.5.1",
