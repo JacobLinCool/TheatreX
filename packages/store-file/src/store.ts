@@ -19,7 +19,7 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 		space<V = T>(name: string): Store<V> {
 			name = normalize(name);
 			if (!spaces.has(name)) {
-				spaces.set(name, filestore(path.join(dir, name)));
+				spaces.set(name, filestore(path.join(dir, "spaces", name)));
 			}
 
 			return spaces.get(name) as Store<V>;
