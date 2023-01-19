@@ -286,6 +286,7 @@ export class Provider<
 	}
 
 	public async start(port: number): Promise<void> {
+		await this._store.prune();
 		await new Promise<void>((resolve, reject) => {
 			try {
 				this.server.listen(port, resolve);
