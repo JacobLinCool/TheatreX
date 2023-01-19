@@ -92,6 +92,9 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 		const res = await this.fetch(`${this.url}/auth`, {
 			method: "POST",
 			body: JSON.stringify(this.auth),
+			headers: {
+				"Content-Type": "application/json",
+			},
 		});
 		await this.handle_error(res);
 
