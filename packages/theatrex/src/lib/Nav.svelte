@@ -1,12 +1,21 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
+	import { goto, preloadData } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { onMount } from "svelte";
 	import Icon from "@iconify/svelte";
 	import type { Tab } from "@theatrex/types";
 
 	export let tabs: Tab[];
 
 	let query = "";
+
+	onMount(() => {
+		for (const tab of tabs) {
+			preloadData(`/tab/${tab.name}`).then(() => {
+				console.log("preload", `/tab/${tab.name}`);
+			});
+		}
+	});
 
 	async function search(evt: KeyboardEvent) {
 		if (evt.key === "Enter") {
