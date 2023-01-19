@@ -13,13 +13,29 @@ TheatreX is a place to combine all your favorite streaming services into a singl
 
 ## Getting Started
 
-If you have Node.js installed, you can use `npx` to run TheatreX Client without installing it.
+You can download **TheatreX Desktop** from [here](https://github.com/JacobLinCool/TheatreX-Desktop/releases).
+
+---
+
+If you don't want to use the desktop app, you can run the server by following the instructions below.
+
+Pre-requisites: Node.js installed.
+
+You can use `npx` to run TheatreX Client without installing it.
 
 ```bash
 npx theatrex
 ```
 
 Then, open your browser and go to `http://localhost:3000`.
+
+If you want run it by `theatrex` command, you can install it globally.
+
+```bash
+npm install -g theatrex
+```
+
+Then run `theatrex` command to start the server.
 
 ## Client
 
