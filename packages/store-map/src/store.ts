@@ -54,5 +54,13 @@ export function mapstore<T = any>(): Store<T | undefined> {
 		pairs<V = T>(): [string, Exclude<V, undefined>][] {
 			return [...data.entries()].map(([k, v]) => [k, v[1]]);
 		},
+		prune(): void {
+			for (const key of data.keys()) {
+				this.has(key);
+			}
+			for (const space of spaces.values()) {
+				space.prune();
+			}
+		},
 	};
 }

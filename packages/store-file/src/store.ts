@@ -114,6 +114,12 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 		pairs<V = T>(): [string, Exclude<V, undefined>][] {
 			return (this.keys() as string[]).map((key) => [key, this.get(key)]) as any;
 		},
+		prune(): void {
+			fs.data.$list().forEach((key) => this.has(key));
+			for (const space of spaces.values()) {
+				space.prune();
+			}
+		},
 	};
 }
 

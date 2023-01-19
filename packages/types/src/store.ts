@@ -8,6 +8,7 @@ export interface Store<T = any> {
 	keys(): Promise<string[]> | string[];
 	values<V = T>(): Promise<Exclude<V, undefined>[]> | Exclude<V, undefined>[];
 	pairs<V = T>(): Promise<[string, Exclude<V, undefined>][]> | [string, Exclude<V, undefined>][];
+	prune(): Promise<void> | void;
 }
 
 export interface StoreOption {
