@@ -62,10 +62,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 		}
 
 		const res = await this.fetch(`${this.url}/info`);
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		this._info = (await res.json()) as Info<T>;
 		this.prefix = this._info.id;
@@ -89,10 +86,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 			},
 			body: JSON.stringify(this.auth),
 		});
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		const { token } = await res.json();
 
@@ -107,10 +101,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 				Authorization: this._token || "",
 			},
 		});
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		return this.patch(await res.json());
 	}
@@ -121,10 +112,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 				Authorization: this._token || "",
 			},
 		});
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		return this.patch(await res.json());
 	}
@@ -135,10 +123,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 				Authorization: this._token || "",
 			},
 		});
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		return this.patch(await res.json());
 	}
@@ -153,11 +138,28 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 				Authorization: this._token || "",
 			},
 		});
-
-		if (!res.ok) {
-			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-		}
+		await this.handle_error(res);
 
 		return res.body;
+	}
+
+	protected async handle_error(res: Response) {
+		if (res.ok) {
+			return;
+		}
+
+		if (res.status === 401) {
+			for (let i = 0; i < 2; i++) {
+				try {
+					await this.authenticate();
+					return;
+				} catch {}
+			}
+			throw new Error("Authentication failed");
+		} else if (res.status === 404) {
+			throw new Error("Not found");
+		} else {
+			throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+		}
 	}
 }
