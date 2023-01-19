@@ -105,7 +105,7 @@
 	<div class="flex flex-col md:flex-row">
 		<div class="p-2">
 			<div class="overflow-hidden rounded-md">
-				<img src={item.cover} alt={item.name} class="w-full max-w-xs rounded-md" />
+				<img src={item.cover} alt={item.name} class="mx-auto w-full max-w-xs rounded-md" />
 			</div>
 		</div>
 		<div class="flex-1 p-2">
