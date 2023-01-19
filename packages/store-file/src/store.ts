@@ -1,6 +1,8 @@
 import path from "node:path";
-import type { Store } from "@theatrex/types";
+import type { Store, StoreOption } from "@theatrex/types";
 import { store } from "./fs";
+
+const HOUR = 60 * 60 * 1000;
 
 const TYPE = {
 	BUFFER: Buffer.from([0]),
@@ -23,7 +25,23 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 			return spaces.get(name) as Store<V>;
 		},
 		has(key: string): boolean {
-			return fs.data[normalize(key)].$exists;
+			const file = fs.data[normalize(key)];
+			if (!file.$exists) {
+				return false;
+			}
+
+			const data = fs.data[normalize(key)].$data;
+			if (!data) {
+				return false;
+			}
+
+			const expires = Number(data.readBigInt64LE(0));
+			if (expires < Date.now()) {
+				fs.data[key].$data = undefined;
+				return false;
+			}
+
+			return true;
 		},
 		get<V = T>(key: string): V | undefined {
 			const data = fs.data[normalize(key)].$data;
@@ -31,8 +49,14 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 				return undefined;
 			}
 
-			const type = data[0];
-			const value = data.subarray(1);
+			const expires = Number(data.readBigInt64LE(0));
+			const type = data[8];
+			const value = data.subarray(9);
+
+			if (expires < Date.now()) {
+				fs.data[key].$data = undefined;
+				return undefined;
+			}
 
 			if (type === TYPE.BUFFER[0]) {
 				return value as V;
@@ -46,22 +70,30 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 				throw new Error("Invalid data type");
 			}
 		},
-		set<V = T>(key: string, value: V): void {
+		set<V = T>(key: string, value: V, opt?: StoreOption): void {
 			key = normalize(key);
+			const expires = date2buffer(Date.now() + (opt?.ttl ?? HOUR));
+
 			if (value instanceof Buffer) {
-				fs.data[key].$data = Buffer.concat([TYPE.BUFFER, value]);
+				fs.data[key].$data = Buffer.concat([expires, TYPE.BUFFER, value]);
 			} else if (value instanceof Set) {
 				fs.data[key].$data = Buffer.concat([
+					expires,
 					TYPE.SET,
 					Buffer.from(JSON.stringify([...value])),
 				]);
 			} else if (value instanceof Map) {
 				fs.data[key].$data = Buffer.concat([
+					expires,
 					TYPE.MAP,
 					Buffer.from(JSON.stringify([...value])),
 				]);
 			} else {
-				fs.data[key].$data = Buffer.concat([TYPE.JSON, Buffer.from(JSON.stringify(value))]);
+				fs.data[key].$data = Buffer.concat([
+					expires,
+					TYPE.JSON,
+					Buffer.from(JSON.stringify(value)),
+				]);
 			}
 		},
 		delete(key: string): void {
@@ -84,4 +116,10 @@ export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 
 export function normalize(key: string): string {
 	return key.replace(/[^a-z0-9]/gi, "-");
+}
+
+export function date2buffer(date: number): Buffer {
+	const buffer = Buffer.alloc(8);
+	buffer.writeBigInt64LE(BigInt(date));
+	return buffer;
 }

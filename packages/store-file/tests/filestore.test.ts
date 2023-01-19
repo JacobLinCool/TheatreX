@@ -1,4 +1,14 @@
+import fs from "fs";
 import { filestore } from "../src";
+
+const clean = () => {
+	if (fs.existsSync(".filestore")) {
+		fs.rmSync(".filestore", { recursive: true });
+	}
+};
+
+beforeAll(clean);
+afterAll(clean);
 
 describe("filestore", () => {
 	test("has, get, set, delete", () => {
@@ -60,5 +70,25 @@ describe("filestore", () => {
 		const json = { a: 1, b: 2, c: [3, 4] };
 		store.set("a", json);
 		expect(store.get("a")).toEqual(json);
+	});
+
+	test("subspace", async () => {
+		const store = filestore();
+		const sub = store.space("x");
+		sub.set("a", 1);
+		expect(sub.has("a")).toBe(true);
+		expect(sub.get("a")).toBe(1);
+		expect(store.space("x")).toBe(sub);
+	});
+
+	test("expires after ttl", async () => {
+		const store = filestore();
+		const json = { a: 1, b: 2, c: [3, 4] };
+		store.set("b", json, { ttl: 100 });
+		expect(store.has("b")).toBe(true);
+		expect(store.get("b")).toEqual(json);
+		await new Promise((resolve) => setTimeout(resolve, 200));
+		expect(store.has("b")).toBe(false);
+		expect(store.get("b")).toBeUndefined();
 	});
 });

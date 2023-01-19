@@ -61,4 +61,24 @@ describe("mapstore", () => {
 		store.set("a", json);
 		expect(store.get("a")).toEqual(json);
 	});
+
+	test("subspace", async () => {
+		const store = mapstore();
+		const sub = store.space("x");
+		sub.set("a", 1);
+		expect(sub.has("a")).toBe(true);
+		expect(sub.get("a")).toBe(1);
+		expect(store.space("x")).toBe(sub);
+	});
+
+	test("expires after ttl", async () => {
+		const store = mapstore();
+		const json = { a: 1, b: 2, c: [3, 4] };
+		store.set("a", json, { ttl: 100 });
+		expect(store.has("a")).toBe(true);
+		expect(store.get("a")).toEqual(json);
+		await new Promise((resolve) => setTimeout(resolve, 200));
+		expect(store.has("a")).toBe(false);
+		expect(store.get("a")).toBeUndefined();
+	});
 });
