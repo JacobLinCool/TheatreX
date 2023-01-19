@@ -10,7 +10,7 @@
 			<img
 				src={item.cover}
 				alt={item.name}
-				class="aspect-[5/7] w-full rounded-md transition-transform duration-200 group-hover:scale-105"
+				class="bg-base-200 aspect-[5/7] w-full rounded-md transition-transform duration-200 group-hover:scale-105"
 				loading="lazy"
 			/>
 		</div>
