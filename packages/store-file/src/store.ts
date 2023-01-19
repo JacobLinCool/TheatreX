@@ -14,6 +14,9 @@ const TYPE = {
 export function filestore<T = any>(dir = ".filestore"): Store<T | undefined> {
 	const fs = store(dir);
 	const spaces = new Map<string, Store<any>>();
+	fs.spaces.$list().forEach((name) => {
+		spaces.set(name, filestore(path.join(dir, "spaces", name)));
+	});
 
 	return {
 		space<V = T>(name: string): Store<V> {
