@@ -21,7 +21,17 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 		this.url = url.replace(/\/+$/, "");
 		this.prefix = prefix || this.url.replace(/[^a-zA-Z0-9]/g, "");
 		this.auth = auth;
-		this.fetch = fetch;
+		this.fetch = async (...args: Parameters<typeof fetch>) => {
+			return fetch(args[0], {
+				...args[1],
+				headers: {
+					Authorization: this._token || "",
+					...args[1]?.headers,
+				},
+			}).catch((err) => {
+				throw new Error(`Failed to fetch ${args[0]}: ${err.message}`);
+			});
+		};
 	}
 
 	public get token(): string | undefined {
@@ -81,9 +91,6 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 	public async authenticate(): Promise<string> {
 		const res = await this.fetch(`${this.url}/auth`, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(this.auth),
 		});
 		await this.handle_error(res);
@@ -96,33 +103,21 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 	}
 
 	public async search(query: string): Promise<SearchResult[]> {
-		const res = await this.fetch(`${this.url}/search?query=${encodeURIComponent(query)}`, {
-			headers: {
-				Authorization: this._token || "",
-			},
-		});
+		const res = await this.fetch(`${this.url}/search?query=${encodeURIComponent(query)}`);
 		await this.handle_error(res);
 
 		return this.patch(await res.json());
 	}
 
 	public async list(id: string): Promise<List> {
-		const res = await this.fetch(`${this.url}/list/${encodeURIComponent(id)}`, {
-			headers: {
-				Authorization: this._token || "",
-			},
-		});
+		const res = await this.fetch(`${this.url}/list/${encodeURIComponent(id)}`);
 		await this.handle_error(res);
 
 		return this.patch(await res.json());
 	}
 
 	public async item(id: string): Promise<Item<true>> {
-		const res = await this.fetch(`${this.url}/item/${encodeURIComponent(id)}`, {
-			headers: {
-				Authorization: this._token || "",
-			},
-		});
+		const res = await this.fetch(`${this.url}/item/${encodeURIComponent(id)}`);
 		await this.handle_error(res);
 
 		return this.patch(await res.json());
@@ -133,11 +128,7 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 	}
 
 	public async resource(id: string): Promise<ReadableStream<Uint8Array> | null> {
-		const res = await this.fetch(this.resloc(id), {
-			headers: {
-				Authorization: this._token || "",
-			},
-		});
+		const res = await this.fetch(this.resloc(id));
 		await this.handle_error(res);
 
 		return res.body;
