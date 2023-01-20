@@ -148,12 +148,8 @@ export class Connector<T extends BaseAuthenticationCredentials> {
 		}
 
 		if (res.status === 401) {
-			for (let i = 0; i < 2; i++) {
-				try {
-					await this.authenticate();
-					return;
-				} catch {}
-			}
+			this._token = undefined;
+			await this.authenticate();
 			throw new Error("Authentication failed");
 		} else if (res.status === 404) {
 			throw new Error("Not found");
