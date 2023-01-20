@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import type { ChildProcess } from "node:child_process";
 import path from "node:path";
 import { Connector } from "@theatrex/connector";
@@ -65,20 +66,7 @@ function providers() {
 			use = normalize(use);
 			if (!locals.has(use)) {
 				const port = 20000 + port_hash(use);
-
-				const options = {
-					stdio: "pipe",
-					env: {
-						...process.env,
-						PORT: port.toString(),
-						STORE: path.join(path.dirname(use), ".store"),
-					},
-					cwd: path.dirname(use),
-				} as const;
-				const child =
-					path.extname(use) === ".js"
-						? spawn(process.execPath, [use], options)
-						: spawn(use, options);
+				const child = run(use);
 
 				child.on("error", (error) => {
 					log(`error ${use}`, error);
@@ -89,7 +77,7 @@ function providers() {
 				});
 
 				locals.set(use, { port, child });
-				log(`spawning ${use} on port ${port}`);
+				log(`spawned ${use} on port ${port}`);
 
 				local_barriers = local_barriers.then(
 					() =>
@@ -132,6 +120,40 @@ function providers() {
 			fetch,
 		);
 	});
+}
+
+function run(use: string): ChildProcessWithoutNullStreams {
+	const port = 20000 + port_hash(use);
+
+	const options = {
+		stdio: "pipe",
+		env: {
+			...process.env,
+			PORT: port.toString(),
+			STORE: path.join(path.dirname(use), ".store"),
+		},
+		cwd: path.dirname(use),
+	} as const;
+
+	try {
+		const child = spawn(use, options);
+		if (child.pid) {
+			return child;
+		}
+	} catch (err) {
+		log("Unable to directly spawn", use, err);
+	}
+
+	try {
+		const child = spawn(process.execPath, [use], options);
+		if (child.pid) {
+			return child;
+		}
+	} catch (err) {
+		log("Unable to spawn", use, "with node", err);
+	}
+
+	throw new Error(`Unable to spawn ${use}`);
 }
 
 export default core;
