@@ -211,6 +211,8 @@ importers:
         specifiers:
             "@iconify/svelte": ^3.0.1
             "@playwright/test": ^1.29.2
+            "@sentry/node": ^7.31.1
+            "@sentry/tracing": ^7.31.1
             "@sveltejs/adapter-node": ^1.1.4
             "@sveltejs/kit": ^1.1.4
             "@theatrex/connector": workspace:*
@@ -224,6 +226,7 @@ importers:
             controlled-fs: ^2.3.1
             daisyui: ^2.47.0
             debug: ^4.3.4
+            https-proxy-agent: ^5.0.1
             js-yaml: ^4.1.0
             postcss: ^8.4.21
             reconnecting-eventsource: ^1.6.2
@@ -243,6 +246,8 @@ importers:
         devDependencies:
             "@iconify/svelte": 3.0.1_svelte@3.55.1
             "@playwright/test": 1.29.2
+            "@sentry/node": 7.31.1
+            "@sentry/tracing": 7.31.1
             "@sveltejs/adapter-node": 1.1.4_@sveltejs+kit@1.1.4
             "@sveltejs/kit": 1.1.4_svelte@3.55.1+vite@4.0.4
             "@theatrex/connector": link:../connector
@@ -256,6 +261,7 @@ importers:
             controlled-fs: 2.3.1
             daisyui: 2.47.0_gbtt6ss3tbiz4yjtvdr6fbrj44
             debug: 4.3.4
+            https-proxy-agent: 5.0.1
             js-yaml: 4.1.0
             postcss: 8.4.21
             reconnecting-eventsource: 1.6.2
@@ -1661,6 +1667,68 @@ packages:
             rollup: 3.9.1
         dev: true
 
+    /@sentry/core/7.31.1:
+        resolution:
+            {
+                integrity: sha512-quaNU6z8jabmatBTDi28Wpff2yzfWIp/IU4bbi2QOtEiCNT+TQJXqlRTRMu9xLrX7YzyKCL5X2gbit/85lyWUg==,
+            }
+        engines: { node: ">=8" }
+        dependencies:
+            "@sentry/types": 7.31.1
+            "@sentry/utils": 7.31.1
+            tslib: 1.14.1
+        dev: true
+
+    /@sentry/node/7.31.1:
+        resolution:
+            {
+                integrity: sha512-4VzfOU1YHeoGkBQmkVXlXoXITf+1NkZEREKhdzgpVAkVjb2Tk3sMoFov4wOKWnNTTj4ka50xyaw/ZmqApgQ4Pw==,
+            }
+        engines: { node: ">=8" }
+        dependencies:
+            "@sentry/core": 7.31.1
+            "@sentry/types": 7.31.1
+            "@sentry/utils": 7.31.1
+            cookie: 0.4.2
+            https-proxy-agent: 5.0.1
+            lru_map: 0.3.3
+            tslib: 1.14.1
+        transitivePeerDependencies:
+            - supports-color
+        dev: true
+
+    /@sentry/tracing/7.31.1:
+        resolution:
+            {
+                integrity: sha512-kW6vNwddp2Ycq2JfTzveUEIRF9YQwvl7L6BBoOZt9oVnYlsPipEeyU2Q277LatHldr8hDo2tbz/vz2BQjO5GSw==,
+            }
+        engines: { node: ">=8" }
+        dependencies:
+            "@sentry/core": 7.31.1
+            "@sentry/types": 7.31.1
+            "@sentry/utils": 7.31.1
+            tslib: 1.14.1
+        dev: true
+
+    /@sentry/types/7.31.1:
+        resolution:
+            {
+                integrity: sha512-1uzr2l0AxEnxUX/S0EdmXUQ15/kDsam8Nbdw4Gai8SU764XwQgA/TTjoewVP597CDI/AHKan67Y630/Ylmkx9w==,
+            }
+        engines: { node: ">=8" }
+        dev: true
+
+    /@sentry/utils/7.31.1:
+        resolution:
+            {
+                integrity: sha512-ZsIPq29aNdP9q3R7qIzJhZ9WW+4DzE9g5SfGwx3UjTIxoRRBfdUJUbf7S+LKEdvCkKbyoDt6FLt5MiSJV43xBA==,
+            }
+        engines: { node: ">=8" }
+        dependencies:
+            "@sentry/types": 7.31.1
+            tslib: 1.14.1
+        dev: true
+
     /@sinclair/typebox/0.24.51:
         resolution:
             {
@@ -2326,6 +2394,18 @@ packages:
             "@videojs/vhs-utils": 3.0.5
             global: 4.4.0
             pkcs7: 1.0.4
+        dev: true
+
+    /agent-base/6.0.2:
+        resolution:
+            {
+                integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==,
+            }
+        engines: { node: ">= 6.0.0" }
+        dependencies:
+            debug: 4.3.4
+        transitivePeerDependencies:
+            - supports-color
         dev: true
 
     /aggregate-error/3.1.0:
@@ -3273,6 +3353,14 @@ packages:
             {
                 integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==,
             }
+        dev: true
+
+    /cookie/0.4.2:
+        resolution:
+            {
+                integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==,
+            }
+        engines: { node: ">= 0.6" }
         dev: true
 
     /cookie/0.5.0:
@@ -4553,6 +4641,19 @@ packages:
             toidentifier: 1.0.1
         dev: false
 
+    /https-proxy-agent/5.0.1:
+        resolution:
+            {
+                integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==,
+            }
+        engines: { node: ">= 6" }
+        dependencies:
+            agent-base: 6.0.2
+            debug: 4.3.4
+        transitivePeerDependencies:
+            - supports-color
+        dev: true
+
     /human-signals/2.1.0:
         resolution:
             {
@@ -5743,6 +5844,13 @@ packages:
         engines: { node: ">=10" }
         dependencies:
             yallist: 4.0.0
+        dev: true
+
+    /lru_map/0.3.3:
+        resolution:
+            {
+                integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==,
+            }
         dev: true
 
     /lunr/2.3.9:
@@ -7877,6 +7985,13 @@ packages:
             semver: 7.3.8
             typescript: 4.9.4
             yargs-parser: 21.1.1
+        dev: true
+
+    /tslib/1.14.1:
+        resolution:
+            {
+                integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==,
+            }
         dev: true
 
     /tslib/2.4.1:

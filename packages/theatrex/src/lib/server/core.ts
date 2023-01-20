@@ -5,6 +5,7 @@ import path from "node:path";
 import { Connector } from "@theatrex/connector";
 import type { TheatrexConfig } from "@theatrex/types";
 import package_json from "../../../package.json";
+import Sentry from "../../sentry";
 import { config, save } from "./config";
 import fs from "./fs";
 import log from "./log";
@@ -112,13 +113,31 @@ function providers() {
 	return config().providers.map((provider) => {
 		const local = locals.get(normalize(provider.use));
 
-		return new Connector(
+		const connector = new Connector(
 			{
 				url: local ? `http://localhost:${local.port}` : provider.use,
 				auth: provider.auth,
 			},
 			fetch,
 		);
+
+		for (const method of Object.keys(connector) as (keyof typeof Connector)[]) {
+			// @ts-expect-error
+			const original = connector[method];
+			if (typeof original === "function") {
+				// @ts-expect-error
+				connector[method] = (...args: any[]) => {
+					try {
+						return original.bind(connector)(...args);
+					} catch (err) {
+						Sentry.captureException(err);
+						throw err;
+					}
+				};
+			}
+		}
+
+		return connector;
 	});
 }
 
