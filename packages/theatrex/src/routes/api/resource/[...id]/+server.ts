@@ -10,7 +10,7 @@ export const GET: RequestHandler = async ({ params }) => {
 	return data
 		? new Response(data, {
 				headers: {
-					"Cache-Control": "public, max-age=86400",
+					"Cache-Control": "public, max-age=60",
 				},
 		  })
 		: new Response(null, { status: 404 });
