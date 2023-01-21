@@ -161,7 +161,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black/80"
+	class="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black/70"
 	on:click={(evt) => {
 		if (evt.target === evt.currentTarget) {
 			hide();
