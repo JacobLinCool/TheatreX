@@ -131,6 +131,10 @@
 						console.log("usage", evt);
 					});
 				});
+
+				player.on("userinactive", () => {
+					(player.el() as HTMLElement).focus();
+				});
 			}
 		}
 	}
