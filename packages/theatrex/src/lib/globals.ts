@@ -54,9 +54,10 @@ export const player_hotkeys = writable({
 				capture(player);
 			}
 		},
-		quit: () => {
+		quit: (player) => {
 			if (!document.fullscreenElement) {
 				current_watching.set(undefined);
+				player.dispose();
 			}
 		},
 		default: (player, keys) => {

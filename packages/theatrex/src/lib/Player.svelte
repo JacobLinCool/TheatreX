@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { onMount } from "svelte";
+	import { fade } from "svelte/transition";
 	import videojs from "video.js";
 	import "video.js/dist/video-js.min.css";
 	import type { Item } from "@theatrex/types";
@@ -18,14 +19,13 @@
 	});
 
 	let show_info = false;
-	let show_info_deferring: any = 0;
 
 	let player: videojs.Player & { title?: string };
 	$: {
 		if (mounted && episode) {
 			const first_time = !player;
 			if (first_time) {
-				player = videojs("#player", {
+				player = videojs("#theatrex-player", {
 					controls: true,
 					autoplay: true,
 					userActions: {
@@ -62,8 +62,6 @@
 					},
 				});
 				player.focus();
-
-				inject_panel();
 			}
 			const source = $page.url.origin + "/api/resource/" + episode.res;
 			if (player.src() !== source) {
@@ -116,14 +114,11 @@
 				});
 
 				player.on("pause", () => {
-					show_info_deferring = setTimeout(() => {
-						show_info = true;
-					}, 1500);
+					show_info = true;
 				});
 
 				player.on("play", () => {
 					show_info = false;
-					clearTimeout(show_info_deferring);
 				});
 
 				player.on("ready", () => {
@@ -148,7 +143,7 @@
 	}
 
 	function inject_panel() {
-		const player = document.querySelector(".theatrex-player");
+		const player = document.querySelector("#theatrex-player");
 		const panel = document.querySelector("#info-panel");
 
 		if (!player || !panel) {
@@ -170,41 +165,49 @@
 >
 	<div class="flex aspect-video max-h-[90%] w-full items-center justify-center">
 		<!-- svelte-ignore a11y-media-has-caption -->
-		<video id="player" class="theatrex-player video-js h-full w-full" />
-		<div
-			id="info-panel"
-			class="pointer-events-none absolute top-0 left-0 h-full w-full {show_info
-				? 'opacity-100'
-				: 'opacity-0'} flex items-center justify-between bg-black/60 p-4 transition-opacity duration-500"
-		>
-			<div>
-				<h1 class="text-base-content my-2 text-xl md:text-2xl lg:text-4xl">
-					{item.name}
-				</h1>
-				<h2 class="text-base-content my-2 text-lg md:text-xl lg:text-2xl">
-					{episode?.name || ""}
-				</h2>
-				<p class="text-base-content my-2">
-					{episode?.description || ""}
-				</p>
-			</div>
+		<video id="theatrex-player" class="theatrex-player video-js h-full w-full" />
+		{#if show_info}
 			<div
-				class="carousel carousel-vertical hidden h-full p-2 lg:block"
-				class:pointer-events-auto={show_info}
+				id="info-panel"
+				class="pointer-events-none absolute top-0 left-0 h-full w-full {show_info
+					? 'opacity-100'
+					: 'opacity-0'} flex items-center justify-between bg-black/60 p-4 transition-opacity duration-500 md:p-8"
+				in:fade={{ duration: 400, delay: 1500 }}
+				out:fade={{ duration: 150 }}
+				on:introstart={() => {
+					if (player && show_info) {
+						inject_panel();
+					}
+				}}
 			>
-				{#each episodes as ep}
-					<div
-						class="carousel-item btn my-2 min-w-[10rem] {episode?.res === ep.res
-							? 'btn-outline'
-							: 'btn-ghost'}"
-						on:click={() => {
-							$current_watching = { item, id: ep.res };
-						}}
-					>
-						{ep.name}
-					</div>
-				{/each}
+				<div>
+					<h1 class="text-base-content my-2 text-xl md:text-2xl lg:text-4xl">
+						{item.name}
+					</h1>
+					<h2 class="text-base-content my-2 text-lg md:text-xl lg:text-2xl">
+						{episode?.name || ""}
+					</h2>
+					<p class="text-base-content my-2">
+						{episode?.description || ""}
+					</p>
+				</div>
+				<div
+					class="carousel carousel-vertical pointer-events-auto hidden max-h-[90%] p-2 lg:block"
+				>
+					{#each episodes as ep}
+						<div
+							class="carousel-item btn my-2 min-w-[10rem] {episode?.res === ep.res
+								? 'btn-outline'
+								: 'btn-ghost'}"
+							on:click={() => {
+								$current_watching = { item, id: ep.res };
+							}}
+						>
+							{ep.name}
+						</div>
+					{/each}
+				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
 </div>
