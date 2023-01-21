@@ -15,6 +15,7 @@ export const player_hotkeys = writable({
 		fullscreen: ["f"],
 		mute: ["m"],
 		capture: ["c", "Control"],
+		quit: ["Escape"],
 	},
 	actions: {
 		play: (player) => {
@@ -51,6 +52,11 @@ export const player_hotkeys = writable({
 				capture(player, `${player.title} - ${player.currentTime().toFixed(1)}`);
 			} else {
 				capture(player);
+			}
+		},
+		quit: () => {
+			if (!document.fullscreenElement) {
+				current_watching.set(undefined);
 			}
 		},
 		default: (player, keys) => {
