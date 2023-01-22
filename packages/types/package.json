@@ -1,6 +1,6 @@
 {
 	"name": "@theatrex/types",
-	"version": "1.0.0-dev.18",
+	"version": "1.0.0-dev.19",
 	"author": "JacobLinCool <jacoblincool@gmail.com> (https://jacoblin.cool)",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
