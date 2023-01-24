@@ -29,8 +29,10 @@ export function update_history(
 	}
 
 	if (option?.sort === "latest") {
-		const [x] = result.splice(index, 1);
-		result.unshift(x);
+		if (index !== -1) {
+			const [x] = result.splice(index, 1);
+			result.unshift(x);
+		}
 	} else {
 		result.sort((a, b) => b.watched - a.watched);
 	}
