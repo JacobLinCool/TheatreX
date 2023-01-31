@@ -9,5 +9,5 @@
 		"theatrex": "1.0.0-dev.19",
 		"@theatrex/types": "1.0.0-dev.19"
 	},
-	"changesets": []
+	"changesets": ["stupid-donkeys-do"]
 }
