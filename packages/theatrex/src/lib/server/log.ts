@@ -7,7 +7,7 @@ if (!debug.enabled("theatrex:core")) {
 	debug.useColors = () => false;
 }
 
-const file = fs.logs.client[new Date().toISOString()];
+const file = fs.logs.client[`${new Date().toISOString().replace(/:/g, "-").split(".")[0]}.log`];
 file.$data = "";
 const stream = file.$fs.createWriteStream();
 

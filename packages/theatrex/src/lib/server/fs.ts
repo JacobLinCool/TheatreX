@@ -69,10 +69,10 @@ const structure = z.object({
 	}),
 
 	logs: z.object({
-		client: z.record(z.string().datetime(), File(z.string(), ...serializer.string)),
+		client: z.record(z.string(), File(z.string(), ...serializer.string)),
 		provider: z.record(
 			z.string(),
-			z.record(z.string().datetime(), File(z.string(), ...serializer.string)),
+			z.record(z.string(), File(z.string(), ...serializer.string)),
 		),
 	}),
 

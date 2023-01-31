@@ -83,7 +83,12 @@ function providers() {
 				local_barriers = local_barriers.then(
 					() =>
 						new Promise((resolve) => {
-							const file = fs.logs.provider[port][new Date().toISOString()];
+							const file =
+								fs.logs.provider[port][
+									`${
+										new Date().toISOString().replace(/:/g, "-").split(".")[0]
+									}.log`
+								];
 							file.$data = "";
 							const stream = file.$fs.createWriteStream();
 							log(`logging ${use} to ${file.$path}`);
