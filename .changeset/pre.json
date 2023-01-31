@@ -1,0 +1,13 @@
+{
+	"mode": "pre",
+	"tag": "dev",
+	"initialVersions": {
+		"@theatrex/connector": "1.0.0-dev.19",
+		"@theatrex/provider": "1.0.0-dev.19",
+		"@theatrex/store-file": "1.0.0-dev.19",
+		"@theatrex/store-map": "1.0.0-dev.19",
+		"theatrex": "1.0.0-dev.19",
+		"@theatrex/types": "1.0.0-dev.19"
+	},
+	"changesets": []
+}
