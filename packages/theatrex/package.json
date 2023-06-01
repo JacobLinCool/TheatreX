@@ -37,7 +37,7 @@
 		"controlled-fs": "^2.3.1",
 		"daisyui": "^2.47.0",
 		"debug": "^4.3.4",
-		"https-proxy-agent": "^5.0.1",
+		"https-proxy-agent": "^7.0.0",
 		"js-yaml": "^4.1.0",
 		"postcss": "^8.4.21",
 		"reconnecting-eventsource": "^1.6.2",
