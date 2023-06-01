@@ -35,7 +35,7 @@
 		"@types/video.js": "^7.3.50",
 		"autoprefixer": "^10.4.13",
 		"controlled-fs": "^2.3.1",
-		"daisyui": "^2.47.0",
+		"daisyui": "^3.0.0",
 		"debug": "^4.3.4",
 		"https-proxy-agent": "^5.0.1",
 		"js-yaml": "^4.1.0",
