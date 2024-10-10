@@ -67,3 +67,15 @@ TheatreX Provider is an adapter that allows TheatreX Client to interact with a s
 It can be written in any language and can be hosted anywhere.
 
 > Since it may include sensitive information, such as your secret credentials, it is recommended to host it locally.
+
+## Screenshots
+
+![screenshot-menu](images/screenshot-menu.png)
+
+![screenshot-episode](images/screenshot-episode.png)
+
+![screenshot-playlist](images/screenshot-playlist.png)
+
+![screenshot-search](images/screenshot-search.png)
+
+![screenshot-settings](images/screenshot-settings.png)
